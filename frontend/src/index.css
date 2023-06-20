@@ -820,17 +820,8 @@ a {
 
 }
 @media (max-width: 411px) {
-  .best-month {
-    margin-top: 20em;
-  }
-  .hero-card > h1 {
-    margin-left: 0.5em;
-  }
-  .hero-card-col {
-    margin-top: 8em;
-    margin-left: 3em;
-    transform: scale(1.2);
-  }
+  
+ 
 }
 @media screen and (max-width: 768px) {
   *{
@@ -951,11 +942,11 @@ a {
     font-size: 11px;
   }
   .product-cards {
-    max-width: 100vw;
-    display: grid;
-    grid-gap: 1vw;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    max-width: 90vw;
     margin-left: 3vw;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 
   .product-card-img {
