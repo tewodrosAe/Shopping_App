@@ -1,22 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-import Nav from './components/Nav'
-import {useState} from 'react';
-import HeroSection from './components/HeroSection'
-import ProductSection from './components/ProductSection';
-import Comments from './components/Comments';
-import Footer from './components/Footer';
-
+import {BrowserRouter,Routes,Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Gallery from './pages/Gallery';
+ 
 function App() {
-  const[isDark,setIsDark] = useState(false)
+  // Dark theme function
+  /* const[isDark,setIsDark] = useState(false)
+  const handleTheme = () => {
+    setIsDark(prev => !prev)
+  } */
+
   return (
-    <>
-      <Nav isDark={isDark}/>
-      <HeroSection/>
-      <ProductSection/>
-      <Comments/>
-      <Footer/>
-    </>
+   <BrowserRouter>
+    {
+      // light and dark theme 
+    }
+
+    {/* <div className={isDark ? 'dark-theme':'light-theme'}>
+      <div className="theme-icon" onClick={handleTheme}>
+        <img src={isDark ? "theme/Light.png" : "theme/Dark.png"} alt="theme" />
+      </div> */}
+
+      <Routes>
+        <Route path='/' element={<Home /* isDark={isDark} *//>}/>
+        <Route path='/gallery' element={<Gallery/>} />
+      </Routes>
+   </BrowserRouter>
   );
 }
 

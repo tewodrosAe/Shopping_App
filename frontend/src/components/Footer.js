@@ -1,10 +1,10 @@
 import React from 'react'
 import TechBadge from './TechBadge'
 
-function Footer() {
+function Footer({isDark}) {
   return (
     <>
-      <TechBadge/>
+      <TechBadge isDark={isDark}/>
       <div className='footer-section'>
         <div className='footer-word'>
           <div className='footer-word-one'>
@@ -12,7 +12,7 @@ function Footer() {
           </div>
           <div className='footer-word-two'>
             <ul>
-              <li className='footer-word-two-header' style={{color: 'black'}}>Product</li>
+              <li id={isDark ? 'footer-word-two-header-dark':'footer-word-two-header'} >Product</li>
               <li>Computers</li>
               <li>Phones</li>
               <li>Tablets</li>
@@ -22,7 +22,7 @@ function Footer() {
               <li>Laptops</li>
             </ul>
             <ul>
-              <li className='footer-word-two-header' style={{color:'black'}}>Associate Companies</li>
+              <li id={isDark ? 'footer-word-two-header-dark':'footer-word-two-header'}>Associate Companies</li>
               <li>Sony</li>
               <li>Samsung</li>
               <li>Apple</li>
@@ -37,9 +37,9 @@ function Footer() {
         <div className='footer-section-three'>
           <small>stay in the loop?</small>
           <div className='footer-social-tags'>
-            <img src='facebook.svg'/>
-            <img src='instagram.svg'/>
-            <img src='twitter.svg'/>
+            <img src={isDark ? 'fb-dark.png':'facebook.svg'} alt='facebook'/>
+            <img src= {isDark ? 'instagram-dark.png':'instagram.svg'} alt='instagram'/>
+            <img src= {isDark ? 'twitter-dark.png':'twitter.svg'} alt='twitter'/>
           </div>
         </div>
       </div>

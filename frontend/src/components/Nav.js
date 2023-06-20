@@ -1,37 +1,94 @@
-import React from 'react'
-import { BsSearch } from "react-icons/bs";
-import { ImCart } from "react-icons/im";
-import { FaUserAlt } from "react-icons/fa";
-export default function Nav({isDark}) {
-  const nav = ['Home', 'Gallery', 'Shop', 'Contact']
+import React, { useState } from 'react'
+import { BsSearch } from 'react-icons/bs'
+import {AiOutlineClose} from 'react-icons/ai'
+import { ImCart } from 'react-icons/im'
+import { FaUserAlt } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+
+export default function Nav({ isDark }) {
+  const [pos,setPos] = useState("-180vw")
+  const nav = [
+    { nav: 'Home', path: '/' },
+    { nav: 'Gallery', path: '/gallery' },
+    { nav: 'Shop', path: '/shop' },
+    { nav: 'Contact', path: '/contact' },
+  ]
+  function onToggleClick() {
+    if (pos === "0"){
+      setPos("-180vw")
+    }
+    else{
+      setPos("0")
+    }
+  }
+  
   return (
-    
-    <div className={isDark ? 'nav nav-dark':'nav'}>
-      <div className='logo'>
-        <img src='logo.png'/>
+    <div className="nav">
+      <Link to="/" className="logo pointer">
+        <img src="logo.png" alt="Logo" />
         <h1>TECH STOP</h1>
-      </div>
-      
-        <ul className="navbar-links">
-          {nav.map((navs) => (
-            <li>{navs}</li>
-            ))}
-        </ul>
-      
-      <div className='nav-three'>
-        <BsSearch />
-        <div className='cart'>
-            <ImCart className='car'/>
-            <div className={isDark ? 'shopping-counter shopping-counter-dark':'shopping-counter'}>
-                0
-            </div>
+      </Link>
+
+      <ul className="navbar-links">
+        {nav.map((n) => (
+          <Link
+            key={n.nav}
+            to={n.path}
+            className={isDark ? 'dark-theme' : 'light-theme'}
+          >
+            {n.nav}
+          </Link>
+        ))}
+      </ul>
+
+      <div className="nav-three ">
+        <BsSearch className="pointer" />
+        <div onClick={onToggleClick} className="menu">
+          <img alt="toggle" src="/menu.svg" />
         </div>
-        <div className={isDark ? 'user': 'user user-dark'}>
-            <FaUserAlt/>
-            <p>Sign in</p>
+        <div className="cart-pointer">
+          <ImCart className="car" />
+          <div
+            className={
+              isDark
+                ? 'shopping-counter shopping-counter-dark'
+                : 'shopping-counter'
+            }
+          >
+            0
+          </div>
+        </div>
+        <div className="user user-dark btn-hover">
+          <FaUserAlt />
+          <p>Sign in</p>
+        </div>
+      </div>
+      <div className="navbar-phone" style={{translate:pos}}>
+        <AiOutlineClose id='close' size={20} onClick={onToggleClick}/>
+        <div className="user-phone user-dark btn-hover">
+          <FaUserAlt />
+          <p>Sign in</p>
+        </div>
+        <ul className='nav-phone'>
+          {nav.map((n) => (
+            <Link key={n.nav} to={n.path}>
+              {n.nav}
+            </Link>
+          ))}
+        </ul>
+        <div className="nav-three-phone">
+          <div className="cart-pointer-phone">
+            <ImCart className="car" />
+            <div
+              className={
+                'shopping-counter'
+              }
+            >
+              0
+            </div>
+          </div>
         </div>
       </div>
     </div>
-   
   )
 }

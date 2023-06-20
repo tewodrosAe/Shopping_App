@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ProductCard ({width,height}) {
+function ProductCard () {
   return (
     <div className='product-card'>
-        <div className='product-card-img' style={{width:width, height:height}}>
+        <div className='product-card-img' >
         </div>
         <h4>Hp Omen 15t</h4>
         <div className='product-card-cost'>

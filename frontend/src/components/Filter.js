@@ -10,7 +10,7 @@ function Filter() {
           <li>Computers</li>
           <li>Others</li>
         </ul>
-        <div><FaFilter size={10}/><small>Filter</small></div>
+        {/* <div className='filter'><FaFilter size={10}/><small>Filter</small></div> */}
       </div>
   )
 }

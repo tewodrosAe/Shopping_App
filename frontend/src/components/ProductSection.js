@@ -4,27 +4,30 @@ import UpcomingSection from './UpcomingSection'
 import BestSellers from './BestSellers'
 import Filter from './Filter'
 
-function ProductSection() {
-  const [width,setWidth] = useState(245)
-  const [height,setHeight] = useState(275)
+function ProductSection({isDark}) {
+  
   return (
     <>
     <div className='products-section'>
-      <h1 className='products-section-head'>NEW TECH</h1>  
+      <h1 className='products-section-head '>NEW TECH</h1>  
       <Filter/>
       <div className='product-cards'>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
-        <ProductCard width={width} height={height}/>
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
       </div>
     </div>
-    <UpcomingSection/>
-    <BestSellers width={290} height={340}/>
+    <UpcomingSection isDark={isDark}/>
+    <BestSellers />
     </>
   )
 }

@@ -1,6 +1,20 @@
 import React from 'react'
 import HeroCard from './HeroCard.js'
+import { motion } from 'framer-motion'
+
 function HeroSection() {
+  const imgVariants = {
+    animate : {
+      y:[0,5,0], 
+      rotate:[14,15,14],
+      transition:{
+        repeat: Infinity,
+        duration:4,
+      }
+      
+    }
+  }
+  
   return (
     <div className='heroWrapper'>
     <div className='hero'>
@@ -10,6 +24,14 @@ function HeroSection() {
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi enim
                 <br/><br/>
                 sapien lacinia, volutpat ante non, porttitor est.</p>
+                <div className="image"
+                >
+                  <motion.img  src="https://png.monster/wp-content/uploads/2022/09/png.monster-209-323x370.png.webp" alt=""
+                    variants={imgVariants}
+                    animate='animate'
+                    while
+                  />
+              </div>
               <button>Buy Now</button>
           </div>
           <div className='hero-section-item'>
@@ -19,15 +41,16 @@ function HeroSection() {
             </div>
           </div>
         </div>
-        <div className='hero-card'>
-          <h1>THIS MONTH</h1>
+        <div className="best-month">
+          <div className='hero-card'>
+            <h1>THIS MONTH</h1>
+          </div>
+          <div className='hero-card-col'>
+            <HeroCard/>
+            <HeroCard/>
+            <HeroCard/>
+            <HeroCard/>
         </div>
-        <div className='hero-card-col'>
-          <HeroCard/>
-          <HeroCard/>
-          <HeroCard/>
-          <HeroCard/>
-          <HeroCard/>
         </div>
     </div>
     </div>

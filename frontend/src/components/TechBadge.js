@@ -1,13 +1,14 @@
 import React from 'react'
 
-function TechBadge() {
+function TechBadge({isDark}) {
+  console.log(isDark)
   return (
-    <div className='techbadge'>
+    <div className={`techbadge ${isDark && "techbadge-dark"}`}>
         <div className='techbadge-first'>
-          <img alt='company' src='lenovo.svg'/>
-          <img alt='company' src='apple.svg'/>
-          <img alt='company' src='samsung.svg'/>
-          <img alt='company' src='hp.svg'/>
+          <img alt='Lenovo' src='lenovo.svg'/>
+          <img alt='apple' src='apple.svg'/>
+          <img alt='samsung' src='samsung.svg'/>
+          <img alt='hp' src='hp.svg'/>
         </div>
     </div>
   )

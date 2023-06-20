@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Comments() {
+function Comments({isDark}) {
   return (
     <>
     <div className='comments-wrapper'>
-        <div className='comments-section'>
+        <div className={`comments-section ${isDark && "comment-section-dark" }`}>
             <div className='comments-section-comment'>
                 <h1>“</h1>
                 <p>My first order arrived today in perfect condition.  
@@ -16,15 +16,17 @@ function Comments() {
             <div className='comment-name'>
                 -Tana Brown
             </div>
-            <ul className='comment-scroll'>
-                <li style={{background:'#3F5B3F'}}></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        <div className='review-btn'>
-            Leave Us A Review
-        </div>
+            <div className="com-wrap">
+                <div className='review-btn'>
+                    Leave Us A Review
+                </div>
+                <ul className='comment-scroll'>
+                    <li style={{background:'#3F5B3F'}}></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
         </div>
         <div className='comments-section-badge'>   
         </div>
