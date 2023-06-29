@@ -1,8 +1,8 @@
 import React from 'react'
 
-function ProductCard () {
+function ProductCard ({slide}) {
   return (
-    <div className='product-card'>
+    <div className={`product-card ${slide && "slide-card"}`}>
         <div className='product-card-img' >
         </div>
         <h4>Hp Omen 15t</h4>

@@ -11,7 +11,6 @@ const Home = ({isDark}) =>{
     
     return(
         <div className="home">
-            <Nav isDark={isDark}/>
             <HeroSection/>
             <ProductSection isDark={isDark}/>
             <Comments isDark={isDark}/>

@@ -10,12 +10,12 @@ export default function Nav({ isDark }) {
   const nav = [
     { nav: 'Home', path: '/' },
     { nav: 'Gallery', path: '/gallery' },
-    { nav: 'Shop', path: '/shop' },
+    { nav: 'Sale', path: '/sale' },
     { nav: 'Contact', path: '/contact' },
   ]
   function onToggleClick() {
     if (pos === "0"){
-      setPos("-180vw")
+      setPos("180vw")
     }
     else{
       setPos("0")
