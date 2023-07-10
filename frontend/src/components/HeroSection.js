@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 import HeroCard from './HeroCard.js'
 import { motion } from 'framer-motion'
 
@@ -14,6 +14,7 @@ function HeroSection() {
       
     }
   }
+ 
   
   return (
     <div className='heroWrapper'>
@@ -58,3 +59,4 @@ function HeroSection() {
 }
 
 export default HeroSection
+

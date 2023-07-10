@@ -4,6 +4,7 @@ import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import Sale from './pages/Sale';
 import Nav from './components/Nav';
+import Footer from './components/Footer';
  
 function App() {
   // Dark theme function
@@ -29,6 +30,7 @@ function App() {
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/sale' element={<Sale/>}/>
       </Routes>
+      <Footer/>
    </BrowserRouter>
   );
 }

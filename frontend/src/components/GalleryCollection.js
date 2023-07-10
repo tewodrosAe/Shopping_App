@@ -23,7 +23,6 @@ function GalleryCollection({title,description}) {
                     </div>
                 </div>
             </div>
-            <Footer/>
         </div>
   )
 }

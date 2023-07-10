@@ -14,7 +14,6 @@ const Home = ({isDark}) =>{
             <HeroSection/>
             <ProductSection isDark={isDark}/>
             <Comments isDark={isDark}/>
-            <Footer isDark={isDark}/>
         </div>
     )
 }

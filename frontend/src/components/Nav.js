@@ -4,6 +4,7 @@ import {AiOutlineClose} from 'react-icons/ai'
 import { ImCart } from 'react-icons/im'
 import { FaUserAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 export default function Nav({ isDark }) {
   const [pos,setPos] = useState("-180vw")
@@ -43,6 +44,11 @@ export default function Nav({ isDark }) {
 
       <div className="nav-three ">
         <BsSearch className="pointer" />
+        <div className="search">
+        <motion.input
+          className="search-input"
+          />
+        </div>
         <div onClick={onToggleClick} className="menu">
           <img alt="toggle" src="/menu.svg" />
         </div>
