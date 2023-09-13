@@ -1,0 +1,1 @@
+export const pathName = "http://localhost:5000/"

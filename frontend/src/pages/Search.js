@@ -2,7 +2,7 @@ import GalleryCollection from "../components/GalleryCollection"
 
 
 const Search = ({result}) => {
-  const title = "Search"
+  const title = "DISCOVER"
   return (
     <GalleryCollection title={title} result={result}/>
   )

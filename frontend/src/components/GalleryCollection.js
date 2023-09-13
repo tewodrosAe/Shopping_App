@@ -2,10 +2,7 @@ import ItemCategories from "../components/ItemCategories"
 import Filter from "../components/Filter"
 import ProductCard from "../components/ProductCard"
 
-
-
 function GalleryCollection({title,result}) {
-    console.log(result)  
     return (
             <div className="gallery">
                 <div className="gallery-container">

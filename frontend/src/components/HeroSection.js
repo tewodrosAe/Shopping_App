@@ -1,6 +1,6 @@
-import React,{useEffect, useState} from 'react'
 import HeroCard from './HeroCard.js'
 import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
 
 function HeroSection() {
   const imgVariants = {
@@ -14,8 +14,8 @@ function HeroSection() {
       
     }
   }
- 
   
+  const navigate = useNavigate()
   return (
     <div className='heroWrapper'>
     <div className='hero'>
@@ -33,7 +33,7 @@ function HeroSection() {
                     while
                   />
               </div>
-              <button>Buy Now</button>
+              <button onClick={() => navigate('/product/1')}>Buy Now</button>
           </div>
           <div className='hero-section-item'>
             <div className='rect'>

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import ProductCard from './ProductCard'
 import UpcomingSection from './UpcomingSection'
 import BestSellers from './BestSellers'

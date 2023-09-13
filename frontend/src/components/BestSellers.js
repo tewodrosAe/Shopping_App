@@ -19,7 +19,6 @@ function BestSellers() {
       spaceBetween={20}
       slidesPerView={'auto'}
       onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
       >
         <SwiperSlide>
           <ProductCard slide={true} />

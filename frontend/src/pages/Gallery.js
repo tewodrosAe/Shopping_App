@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import GalleryCollection from "../components/GalleryCollection"
 
 
