@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#active-nav{
+    background: #5e72f181;
+    margin-left: -15px;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+#active-nav > svg{
+    color: rgb(12, 15, 184);
+}
+
+.user-card{
+    @apply bg-white mt-5 flex flex-col gap-1 p-5 items-center text-sky-950 shadow-xl rounded-xl
+}
