@@ -12,7 +12,8 @@ module.exports = {
       },
       fontSize: {
         'text1': '0.8rem',
-        'text2': '0.85rem'
+        'text2': '0.85rem',
+        'product': '0.91rem'
       },
       height: {
         'single': '1px'

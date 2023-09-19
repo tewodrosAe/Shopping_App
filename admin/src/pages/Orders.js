@@ -5,20 +5,19 @@ const Orders = () => {
   return (
     <div className='font-semibold'>
       Orders
-      <div className='mt-3 bg-white'>
-        <table className='text-sm w-full'>
-          <tr className='w-full flex justify-around'>
+      <div className='mt-3 bg-white p-3 shadow-lg'>
+        <table className='text-sm w-full text-left space-y-2'>
+          <tr className='w-full grid justify-between grid-cols-4'>
             <th> DATE </th>
             <th> PAID </th>
             <th> RECIPIENT </th>
             <th> PRODUCTS </th>
           </tr>
-          <tr className='w-full flex justify-between'>
-              <td> 4/8/2023, 4:41:16 PM </td>
-              <td> NO </td>
-              <td> Dawid Paszko </td>
-              <td> IPhone 14 pro max </td>
-          </tr>
+          <div className='w-full h-single bg-black/20'/>
+          <OrdersList/>
+          <OrdersList/>
+          <OrdersList/>
+          <OrdersList/>
         </table>
       </div>
     </div>

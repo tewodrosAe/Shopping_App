@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav'
 import { Admins, Categories, Dashboard, Orders, Products } from './pages'
+import ProductDetails from './pages/ProductDetails'
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Dashboard/>}/>
         <Route path='/products' element={<Products/>}/>
+        <Route path='/productdetails/:id' element={<ProductDetails/>}/>
         <Route path='/categories' element={<Categories/>}/>
         <Route path='/orders' element={<Orders/>}/>
         <Route path='/admins' element={<Admins/>}/>
