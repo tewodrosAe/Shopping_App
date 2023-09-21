@@ -36,7 +36,7 @@ const Nav = () => {
          <li> <Link to={`/categories`} className="flex items-center gap-2" id={active === 'Categories' ? 'active-nav': undefined}onClick={handleClick}> <BsCollection/> Categories </Link></li>
          <li> <Link to={`/orders`} className="flex items-center gap-2" id={active === 'Orders' ? 'active-nav': undefined} onClick={handleClick}> <BsBorderStyle/> Orders </Link></li>
          <li> <Link to={`/admins`} className="flex items-center gap-2" id={active === 'Admins' ? 'active-nav': undefined} onClick={handleClick}> <MdOutlineAdminPanelSettings size={20}/> Admins </Link></li>
-         <li onClick={logout} className="flex items-center gap-2"> <BiLogOutCircle size={20}/> Logout </li>
+         <li onClick={logout} className="flex items-center gap-2 cursor-pointer"> <BiLogOutCircle size={20}/> Logout </li>
       </ul>
     </div>
   )
