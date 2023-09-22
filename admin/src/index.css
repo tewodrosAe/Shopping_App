@@ -23,3 +23,9 @@
 .upload-btn{
     @apply relative flex flex-col justify-center items-center w-28 h-28 border font-semibold text-sm bg-white cursor-pointer border-blue-700 text-blue-700 rounded-md
 }
+.dropdown{
+    @apply h-9 w-full py-1 px-2 border border-black/20 rounded-md outline-none 
+}
+.btn-2{
+    @apply flex gap-1 items-center mr-auto border p-2 bg-white
+}

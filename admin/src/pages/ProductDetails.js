@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { BsUpload } from 'react-icons/bs'
+import DropDown from '../components/DropDown'
 
 const ProductDetails = () => {
   // React Hooks
@@ -8,11 +9,12 @@ const ProductDetails = () => {
     category: '',
     color: '',
     storage: '',
+    price: '',
     description: '',
   })
   const [images, setImages] = useState([])
   const [error, setError] = useState(false)
-
+  
   // Functions
   const handleChange = (e) => {
     const name = e.target.name
@@ -50,11 +52,13 @@ const ProductDetails = () => {
         <input name='name' value={productDetail.name} onChange={handleChange} type="text" className="product-input" required/>
         <label> Category </label>
         <input name='category' value={productDetail.category} onChange={handleChange} type="text" className="product-input" required/>
+        <label> Price($) </label>
+        <input name='price' value={productDetail.price} onChange={handleChange} type="number" min={1} className="product-input" required/>
         <label> Color </label>
-        <input name='color' value={productDetail.color} onChange={handleChange} type="text" className="product-input" required/>
-        <label> Storage(GB) </label>
-        <input name='storage' value={productDetail.storage} onChange={handleChange} type="text" className="product-input" required/>
-        <label> Photos </label>
+        <DropDown name='color' dropDown={productDetail} setDropDown={setProductDetail} />
+        <label className='mt-3'> Storage(GB) </label>
+        <DropDown name='storage' dropDown={productDetail} setDropDown={setProductDetail}/>
+        <label className='mt-3'> Photos </label>
         <div className="flex gap-3">
           {images.length > 0 &&
             images.map((image) => {
