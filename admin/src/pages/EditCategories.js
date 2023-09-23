@@ -3,7 +3,7 @@ import PropertyDetails from '../components/PropertyDetails'
 import { AiOutlineClose } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import DropDown from '../components/DropDown'
-import { categories } from '../constants'
+
 
 const EditCategories = () => {
   // React Hooks
