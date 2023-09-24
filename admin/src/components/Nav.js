@@ -45,7 +45,7 @@ const Nav = () => {
       <div className={`bg-white p-10 rounded-md shadow-2xl font-semibold `}>
         Are you sure you want to log out?
         <div className="flex gap-5 w-full justify-center mt-3">
-          <button className="btn-3 bg-red-600 text-white">Logout</button>
+          <button className="btn-3 bg-red-600 text-white" onClick={() => {navigate('/login'); logout()}}>Logout</button>
           <button className="btn-3 border border-slate-300" onClick={logout}>Cancel</button>
         </div>
       </div>

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    margin: 0;
+    padding: 0;
+}
 #active-nav{
     background: #5e72f181;
     margin-left: -15px;
