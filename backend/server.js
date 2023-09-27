@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import userRoutes from './routes/user.js'
 import userDetailRoutes from './routes/userDetail.js'
+import adminRoutes from './routes/admin.js'
 
 // app configuration
 const app = express()
@@ -16,7 +17,7 @@ app.use(cors())
 // routes
 app.use('/api/v1/auth',userRoutes)
 app.use('/api/v1/userdetail',userDetailRoutes)
-app.use('/admin',userDetailRoutes)
+app.use('/admin',adminRoutes)
 
 
 // enviroment constant calling

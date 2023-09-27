@@ -1,32 +1,65 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AdminDetails from '../components/AdminDetails'
 import { GoogleLogin } from '@react-oauth/google';
 import { useGoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
+import axios from 'axios'
 
 const Admins = () => {
-  // React hooks
-  const googleRef = useRef()
-  
+  // React Hooks
+  const [admins, setAdmins] = useState([])
+  const [status, setStatus] = useState('Loading...')
   // Functions
-
   const login = useGoogleLogin({
-    onSuccess: async tokenResponse => {
+    onSuccess: async response => {
       try{
-        const data = await fetch("https://www.googleapis.com/oauth2/v3/userinfo",
+        const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo",
           {
             headers:{
-              "Authorization": `${tokenResponse.token_type} ${tokenResponse.access_token}` 
+              "Authorization": `${response.token_type} ${response.access_token}` 
             }
           }
         )
-        console.log(data)
+        const {email, name:username, picture:image} = res.data
+        try{
+          const resp = await axios.post('http://localhost:5000/admin/create',{email, username, image})
+          const data = await resp.data
+          setAdmins([...admins,data])
+        }catch(e){
+          console.log(e)
+        }
       }catch(error){
-        console.log(error)
+        console.log('Google auth error')
       }
     }
   });
-  
+  const handleDelete = async(id) => {
+    try{
+      const user = await axios.delete(`http://localhost:5000/admin/${id}`)
+      const newAdmins = admins.filter(admin => admin._id !== id)
+      setAdmins(newAdmins)
+    }catch(e){
+      console.log(e)
+    }
+  }
+
+  // useEffect
+  useEffect(() => {
+    const adminDetail = async() => {
+      try{
+        const {data} = await axios.get("http://localhost:5000/admin/")
+        if(data.length <= 0) {
+          setStatus("No Admins")
+          return 0
+        }
+        setAdmins(data)
+      }catch(e){
+        setStatus('Something went wrong')
+      }
+    }
+    adminDetail()
+  },[])
+
   return (
     <div className='font-semibold'>
       Admins
@@ -44,9 +77,16 @@ const Admins = () => {
               <th> ADMIN GOOGLE EMAIL </th>
               <th> DATE </th>
             </tr>
-            <div className='w-full h-single bg-black/20'/>
-            <AdminDetails/>
-            <AdminDetails/>
+            <tr >
+              <td className='w-full h-single bg-black/20'></td>
+            </tr>
+            {
+              admins ?
+              admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin}/>) :
+              <tr>
+                <td> {status} </td>
+              </tr>
+            }
           </table>
         </div>
       </div>
