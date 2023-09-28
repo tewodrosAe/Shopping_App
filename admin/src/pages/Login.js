@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../redux/adminSlice';
 
 const Login = () => {
-    const login = (cred) => {
+    //React hooks
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [error, setError] = useState()
+    
+    //functions
+    const login = async(cred) => {
+        setError(null)
         const decoded = jwtDecode(cred.credential)
-        const {email, family_name, given_name, picture} = decoded
-        const data = {email, family_name, given_name, picture}
-        console.log(data)
+        const {email}  = decoded
+        const {data} = await axios.post("http://localhost:5000/admin/find",{email})
+        if(data.error){
+            setError(data.error)
+        }else{
+            dispatch(addUser(decoded))
+            localStorage.setItem('user', JSON.stringify(data))
+            navigate('/')
+        }
     }
+
     return (
         <div className='flex flex-col gap-4 text-white justify-center items-center absolute h-screen w-screen bg-blue-900 pb-6'>
             <div className='text-5xl text-center font-bold tracking-tight [word-spacing:3px]'>
@@ -25,6 +43,9 @@ const Login = () => {
                 console.log('Login Failed');
             }}
             />
+            {
+                error && <div className='text-sm font-bold text-center text-red-800 w-100 bg-white/50 rounded-sm p-2 px-10 transition'> *{error} </div>
+            }
         </div>
     )
 }

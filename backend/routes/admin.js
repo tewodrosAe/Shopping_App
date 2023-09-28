@@ -1,13 +1,15 @@
 import express from 'express'
-import { getAdmin, createAdmin, findAdmin,deleteAdmin } from '../controllers/adminController.js'
+import { getAdmins, createAdmin, findAdmin,deleteAdmin, getAdmin } from '../controllers/adminController.js'
 
 const route = express.Router()
 
-route.get('/',getAdmin)
+route.get('/',getAdmins)
 
 route.delete('/:id',deleteAdmin)
 
 route.post('/create',createAdmin)
+
+route.post('/search',getAdmin)
 
 route.post('/find',findAdmin)
 

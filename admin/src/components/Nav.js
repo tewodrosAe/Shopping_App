@@ -5,6 +5,8 @@ import {MdOutlineAdminPanelSettings} from 'react-icons/md'
 import {BiLogOutCircle} from 'react-icons/bi'
 import { useState } from "react"
 import { capitalize } from "../utils"
+import { useDispatch } from 'react-redux';
+import { removeUser } from "../redux/adminSlice"
 
 const Nav = () => {
   // React Hooks
@@ -12,10 +14,14 @@ const Nav = () => {
   const {pathname} = useLocation()
   const [loged, setLoged] = useState(false)
   const [active, setActive] = useState(capitalize(pathname)) 
+  const dispatch = useDispatch()
 
   // Functions
   const logout = () => {
+    dispatch(removeUser())
+    localStorage.removeItem('user')
     setLoged(log => !log)
+    navigate('/login')
   }
   const handleClick = (e) => {
     const text = e.target.innerText
@@ -38,15 +44,15 @@ const Nav = () => {
          <li> <Link to={`/categories`} className="flex items-center gap-2" id={active === 'Categories' ? 'active-nav': undefined}onClick={handleClick}> <BsCollection/> Categories </Link></li>
          <li> <Link to={`/orders`} className="flex items-center gap-2" id={active === 'Orders' ? 'active-nav': undefined} onClick={handleClick}> <BsBorderStyle/> Orders </Link></li>
          <li> <Link to={`/admins`} className="flex items-center gap-2" id={active === 'Admins' ? 'active-nav': undefined} onClick={handleClick}> <MdOutlineAdminPanelSettings size={20}/> Admins </Link></li>
-         <li onClick={logout} className="flex items-center gap-2 cursor-pointer"> <BiLogOutCircle size={20}/> Logout </li>
+         <li onClick={() => setLoged(log => !log)} className="flex items-center gap-2 cursor-pointer"> <BiLogOutCircle size={20}/> Logout </li>
       </ul>
     </div>
     <div className={`absolute h-screen w-screen flex justify-center items-center backdrop-blur-sm backdrop-brightness-50 ${loged ? '': 'hidden'}`}>
       <div className={`bg-white p-10 rounded-md shadow-2xl font-semibold `}>
         Are you sure you want to log out?
         <div className="flex gap-5 w-full justify-center mt-3">
-          <button className="btn-3 bg-red-600 text-white" onClick={() => {navigate('/login'); logout()}}>Logout</button>
-          <button className="btn-3 border border-slate-300" onClick={logout}>Cancel</button>
+          <button className="btn-3 bg-red-600 text-white" onClick={logout}>Logout</button>
+          <button className="btn-3 border border-slate-300" onClick={() => setLoged(log => !log)}>Cancel</button>
         </div>
       </div>
     </div>

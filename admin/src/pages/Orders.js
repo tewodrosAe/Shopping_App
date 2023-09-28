@@ -6,17 +6,25 @@ const Orders = () => {
       Orders
       <div className='mt-3 bg-white p-3 shadow-lg'>
         <table className='text-sm w-full text-left space-y-2'>
-          <tr className='w-full grid justify-between grid-cols-4'>
-            <th> DATE </th>
-            <th> PAID </th>
-            <th> RECIPIENT </th>
-            <th> PRODUCTS </th>
-          </tr>
-          <div className='w-full h-single bg-black/20'/>
-          <OrdersList/>
-          <OrdersList/>
-          <OrdersList/>
-          <OrdersList/>
+          <thead>
+            <tr className='w-full grid justify-between grid-cols-4 mb-2'>
+              <th> DATE </th>
+              <th> PAID </th>
+              <th> RECIPIENT </th>
+              <th> PRODUCTS </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className='w-full h-single bg-black/20'/>
+            </tr>
+          </tbody>
+          <tfoot>
+            <OrdersList/>
+            <OrdersList/>
+            <OrdersList/>
+            <OrdersList/>
+          </tfoot>
         </table>
       </div>
     </div>

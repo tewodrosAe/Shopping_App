@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminDetails from '../components/AdminDetails'
-import { GoogleLogin } from '@react-oauth/google';
 import { useGoogleLogin } from '@react-oauth/google';
-import jwtDecode from 'jwt-decode';
 import axios from 'axios'
 
 const Admins = () => {
@@ -33,9 +31,9 @@ const Admins = () => {
       }
     }
   });
-  const handleDelete = async(id) => {
+  const handleDelete = (id) => {
     try{
-      const user = await axios.delete(`http://localhost:5000/admin/${id}`)
+      axios.delete(`http://localhost:5000/admin/${id}`)
       const newAdmins = admins.filter(admin => admin._id !== id)
       setAdmins(newAdmins)
     }catch(e){
@@ -73,20 +71,24 @@ const Admins = () => {
         Existing Admins
         <div className='mt-3 bg-white p-3 shadow-lg'>
           <table className='text-sm w-full text-left space-y-2'>
-            <tr className='w-full grid justify-between grid-cols-3 gap-20 text-slate-500'>
-              <th> ADMIN GOOGLE EMAIL </th>
-              <th> DATE </th>
-            </tr>
-            <tr >
-              <td className='w-full h-single bg-black/20'></td>
-            </tr>
-            {
-              admins ?
-              admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin}/>) :
-              <tr>
-                <td> {status} </td>
+            <thead>
+              <tr className='w-full grid justify-between grid-cols-3 gap-20 text-slate-500 mb-1'>
+                <th> ADMIN GOOGLE EMAIL </th>
+                <th> DATE </th>
               </tr>
-            }
+              <tr >
+                <td className='w-full h-single bg-black/20 '></td>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                admins ?
+                admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin}/>) :
+                <tr>
+                  <td> {status} </td>
+                </tr>
+              }
+            </tbody>
           </table>
         </div>
       </div>

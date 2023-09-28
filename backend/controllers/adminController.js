@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 const createToken  = (email) => {
     return jwt.sign({email}, process.env.SECRET, {expiresIn:'3d'})
 }
-const getAdmin = async(req,res) => {
+const getAdmins = async(req,res) => {
     try{
         const user = await Admin.find().sort({createdAt:-1})
         res.status(200).json(user)
@@ -14,12 +14,31 @@ const getAdmin = async(req,res) => {
         res.status(400).json({error:e})
     }
 }
+
+const getAdmin = async(req,res) => {
+    const {token} = req.body
+    const {email} = jwt.verify(token, process.env.SECRET)
+    try{
+        const user = await Admin.findOne({email})
+        if(!user){
+            return res.status(400).json({error: 'Access Denied'})
+        }
+        res.status(200).json(user)
+    }catch(e){
+        res.status(400).json({error:e})
+    }
+}
+
 const findAdmin = async(req,res) => {
     const {email} = req.body
     try{
         const user = await Admin.findOne({email})
-        const token = createToken(email)
-        res.status(200).json({token})
+        if(user){
+            const token = createToken(email)
+            res.status(200).json({token})
+        }else{
+            res.status(200).json({error: 'Access Denied'})
+        }
     }catch(e){
         res.status(400).json({error: e})
     }
@@ -51,4 +70,4 @@ const deleteAdmin = async(req,res) => {
     res.status(200).json(admin)
 }
 
-export {createAdmin, getAdmin, findAdmin, deleteAdmin}
+export {createAdmin, getAdmins, findAdmin, deleteAdmin, getAdmin}
