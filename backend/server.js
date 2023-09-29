@@ -2,9 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
-import userRoutes from './routes/user.js'
-import userDetailRoutes from './routes/userDetail.js'
-import adminRoutes from './routes/admin.js'
+import userRoutes from './routes/userRoute.js'
+import productRoutes from './routes/productRoute.js'
+import userDetailRoutes from './routes/userDetailRoute.js'
+import adminRoutes from './routes/adminRoute.js'
 
 // app configuration
 const app = express()
@@ -17,7 +18,8 @@ app.use(cors())
 // routes
 app.use('/api/v1/auth',userRoutes)
 app.use('/api/v1/userdetail',userDetailRoutes)
-app.use('/admin',adminRoutes)
+app.use('/api/v1/admin',adminRoutes)
+app.use('/api/v1/product',productRoutes)
 
 
 // enviroment constant calling

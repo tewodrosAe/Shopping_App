@@ -20,7 +20,7 @@ const Admins = () => {
         )
         const {email, name:username, picture:image} = res.data
         try{
-          const resp = await axios.post('http://localhost:5000/admin/create',{email, username, image})
+          const resp = await axios.post(`${process.env.PATH}/admin/create`,{email, username, image})
           const data = await resp.data
           setAdmins([...admins,data])
         }catch(e){
@@ -33,7 +33,7 @@ const Admins = () => {
   });
   const handleDelete = (id) => {
     try{
-      axios.delete(`http://localhost:5000/admin/${id}`)
+      axios.delete(`${process.env.PATH}/admin/${id}`)
       const newAdmins = admins.filter(admin => admin._id !== id)
       setAdmins(newAdmins)
     }catch(e){
@@ -45,7 +45,7 @@ const Admins = () => {
   useEffect(() => {
     const adminDetail = async() => {
       try{
-        const {data} = await axios.get("http://localhost:5000/admin/")
+        const {data} = await axios.get(`${process.env.PATH}/admin/`)
         if(data.length <= 0) {
           setStatus("No Admins")
           return 0

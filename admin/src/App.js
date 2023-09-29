@@ -18,7 +18,7 @@ const App = () => {
       const current = localStorage.getItem('user')
       if(current){
         try{
-          const user = await axios.post('http://localhost:5000/admin/search',JSON.parse(current))
+          const user = await axios.post(`${process.env.PATH}/admin/search`,JSON.parse(current))
           dispatch(addUser(user.data))
           setLoading(false)
         }catch(e){

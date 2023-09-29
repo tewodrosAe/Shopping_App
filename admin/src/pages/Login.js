@@ -17,7 +17,7 @@ const Login = () => {
         setError(null)
         const decoded = jwtDecode(cred.credential)
         const {email}  = decoded
-        const {data} = await axios.post("http://localhost:5000/admin/find",{email})
+        const {data} = await axios.post(`${process.env.PATH}/admin/find`,{email})
         if(data.error){
             setError(data.error)
         }else{
