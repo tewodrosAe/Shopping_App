@@ -2,15 +2,17 @@ import React, { useEffect, useState} from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { addUser } from './redux/adminSlice'
-import { Admins, Categories, Dashboard, EditCategories, Orders, ProductDetails, Products } from './pages'
+import { Admins, Categories, Dashboard, Orders, ProductDetails, Products } from './pages'
 import Login from './pages/Login'
 import { BasicLayout } from './layout/BaseLayout'
 import axios from 'axios'
+import { getCategory } from './redux/categorySlice'
 
 
 const App = () => {
   const dispatch = useDispatch()
   const {user} = useSelector(state => state.user)
+  const {category} = useSelector(state => state.category)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -18,8 +20,10 @@ const App = () => {
       const current = localStorage.getItem('user')
       if(current){
         try{
-          const user = await axios.post(`${process.env.PATH}/admin/search`,JSON.parse(current))
+          const user = await axios.post(`${process.env.REACT_APP_PATH}/admin/search`,JSON.parse(current))
           dispatch(addUser(user.data))
+          const categories = await axios.get(`${process.env.REACT_APP_PATH}/category/`)
+          dispatch(getCategory(categories.data))
           setLoading(false)
         }catch(e){
           console.log('something went wrong')
@@ -29,7 +33,7 @@ const App = () => {
     }
     fetchUser()
   },[])
-
+  
   return (
     <BrowserRouter>
     {
@@ -45,7 +49,6 @@ const App = () => {
             <Route path='/products' element={<Products/>}/>
             <Route path='/productdetails/:id' element={<ProductDetails/>}/>
             <Route path='/categories' element={<Categories/>}/>
-            <Route path='/categories/:id' element={<EditCategories/>}/>
             <Route path='/orders' element={<Orders/>}/>
             <Route path='/admins' element={<Admins/>}/>
           </Route>

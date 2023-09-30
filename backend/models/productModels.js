@@ -1,6 +1,4 @@
 import mongoose from 'mongoose'
-import category from './categoryModels.js'
-import property from './propertyModels.js'
 
 const Schema = mongoose.Schema
 
@@ -12,6 +10,10 @@ const reviewSchema = new Schema(
   },
   { timestamps: true },
 )
+const propertySchema = new Schema({
+  storage:[Number],
+  color:[String]
+})
 
 const productSchema = new Schema({
   name: {
@@ -19,7 +21,7 @@ const productSchema = new Schema({
     required: true,
   },
   category: {
-    type: category,
+    type: String,
     required: true,
   },
   price: {
@@ -27,7 +29,7 @@ const productSchema = new Schema({
     required: true,
   },
   property: {
-    type: property,
+    type: propertySchema,
     required: true,
   },
   picture: {

@@ -7,6 +7,7 @@ const Admins = () => {
   // React Hooks
   const [admins, setAdmins] = useState([])
   const [status, setStatus] = useState('Loading...')
+  
   // Functions
   const login = useGoogleLogin({
     onSuccess: async response => {
@@ -20,7 +21,7 @@ const Admins = () => {
         )
         const {email, name:username, picture:image} = res.data
         try{
-          const resp = await axios.post(`${process.env.PATH}/admin/create`,{email, username, image})
+          const resp = await axios.post(`${process.env.REACT_APP_PATH}/admin/create`,{email, username, image})
           const data = await resp.data
           setAdmins([...admins,data])
         }catch(e){
@@ -33,7 +34,7 @@ const Admins = () => {
   });
   const handleDelete = (id) => {
     try{
-      axios.delete(`${process.env.PATH}/admin/${id}`)
+      axios.delete(`${process.env.REACT_APP_PATH}/admin/${id}`)
       const newAdmins = admins.filter(admin => admin._id !== id)
       setAdmins(newAdmins)
     }catch(e){
@@ -45,7 +46,7 @@ const Admins = () => {
   useEffect(() => {
     const adminDetail = async() => {
       try{
-        const {data} = await axios.get(`${process.env.PATH}/admin/`)
+        const {data} = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
         if(data.length <= 0) {
           setStatus("No Admins")
           return 0

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import property from './propertyModels.js'
 
 const Schema = mongoose.Schema
 
@@ -9,11 +8,7 @@ const categorySchema = new Schema({
     required: true,
     unique: true,
   },
-  parent: String,
-  properties: {
-    type: property,
-    required: true,
-  },
+  parentCategory: String,
 })
 
 export default mongoose.model('category', categorySchema)

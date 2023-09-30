@@ -16,7 +16,7 @@
     color: rgb(12, 15, 184);
 }
 .btn {
-    @apply mt-5 ml-auto mr-auto bg-blue-700 text-white w-28 p-2 rounded-sm
+    @apply  ml-auto mr-auto bg-blue-700 text-white rounded-sm 
 }
 .user-card{
     @apply bg-white mt-5 flex flex-col gap-1 p-5 items-center text-sky-950 shadow-xl rounded-xl
@@ -35,4 +35,7 @@
 }
 .btn-3{
     @apply py-2 px-4  font-semibold
+}
+.item{
+    @apply flex items-center list-none h-8 cursor-pointer transition px-3 rounded-lg hover:bg-slate-100
 }

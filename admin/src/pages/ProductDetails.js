@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { BsUpload } from 'react-icons/bs'
 import DropDown from '../components/DropDown'
+import MultipleDropDown from '../components/MultipleDropDown'
 
 const ProductDetails = () => {
   // React Hooks
@@ -55,9 +56,9 @@ const ProductDetails = () => {
         <label> Price($) </label>
         <input name='price' value={productDetail.price} onChange={handleChange} type="number" min={1} className="product-input" required/>
         <label> Color </label>
-        <DropDown name='color' dropDown={productDetail} setDropDown={setProductDetail} />
+        <MultipleDropDown  />
         <label className='mt-3'> Storage(GB) </label>
-        <DropDown name='storage' dropDown={productDetail} setDropDown={setProductDetail}/>
+        <MultipleDropDown />
         <label className='mt-3'> Photos </label>
         <div className="flex gap-3">
           {images.length > 0 &&

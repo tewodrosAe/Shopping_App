@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import userRoutes from './routes/userRoute.js'
 import productRoutes from './routes/productRoute.js'
+import categoryRoutes from './routes/categoryRoute.js'
 import userDetailRoutes from './routes/userDetailRoute.js'
 import adminRoutes from './routes/adminRoute.js'
 
@@ -20,6 +21,7 @@ app.use('/api/v1/auth',userRoutes)
 app.use('/api/v1/userdetail',userDetailRoutes)
 app.use('/api/v1/admin',adminRoutes)
 app.use('/api/v1/product',productRoutes)
+app.use('/api/v1/category',categoryRoutes)
 
 
 // enviroment constant calling
