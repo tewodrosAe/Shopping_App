@@ -1,11 +1,24 @@
 export const properties = {
     colors : [
         'red',
-        'grew'
+        'white',
+        'blue',
+        'black',
+        'green',
+        'yellow',
+        'purple',
+        'orange'
     ],
     storage : [
-        'red',
-        'grew'
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1000,
+        2000,
+        5000
     ]
 }
 

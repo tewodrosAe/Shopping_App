@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addUser } from '../redux/adminSlice';
+import { addAdmins, addUser } from '../redux/adminSlice';
 import { getCategory } from '../redux/categorySlice';
 
 const Login = () => {
@@ -25,6 +25,8 @@ const Login = () => {
             const categories = await axios.get(`${process.env.REACT_APP_PATH}/category/`)
             dispatch(getCategory(categories.data))
             dispatch(addUser(decoded))
+            const admin = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
+            dispatch(addAdmins(admin.data))
             localStorage.setItem('user', JSON.stringify(data))
             navigate('/')
         }

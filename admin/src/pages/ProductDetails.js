@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import { BsUpload } from 'react-icons/bs'
-import DropDown from '../components/DropDown'
 import MultipleDropDown from '../components/MultipleDropDown'
+import { properties } from '../constants'
+
 
 const ProductDetails = () => {
   // React Hooks
   const [productDetail, setProductDetail] = useState({
     name: '',
     category: '',
-    color: '',
-    storage: '',
     price: '',
     description: '',
   })
+  const [color,setColor] = useState([])
+  const [storage,setStorage] = useState([])
   const [images, setImages] = useState([])
   const [error, setError] = useState(false)
   
@@ -31,16 +33,25 @@ const ProductDetails = () => {
       type === 'jpg' ||
       type === 'webp'
     ) {
-      setImages([...images, file])
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setImages([...images, reader.result])
+      }
     } else {
       setError(true)
+      return 0
     }
   }
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async(e) => {
     e.preventDefault()
-    const data = [productDetail, images]
-    console.log(data)
+   /*  const data = {productDetail, images, property:{color, storage}}
+    console.log(data) */
+    const resp = await axios.post(`${process.env.REACT_APP_PATH}/product/create`, {images})
+    console.log(resp)
   }
+  console.log(images)
 
   return (
     <div>
@@ -56,18 +67,18 @@ const ProductDetails = () => {
         <label> Price($) </label>
         <input name='price' value={productDetail.price} onChange={handleChange} type="number" min={1} className="product-input" required/>
         <label> Color </label>
-        <MultipleDropDown  />
+        <MultipleDropDown title='color' datas={properties.colors} setProperty={setColor} property={color}/>
         <label className='mt-3'> Storage(GB) </label>
-        <MultipleDropDown />
+        <MultipleDropDown title='storage' datas={properties.storage} setProperty={setStorage} property={storage}/>
         <label className='mt-3'> Photos </label>
         <div className="flex gap-3">
           {images.length > 0 &&
             images.map((image) => {
               return (
                 <img
-                  key={image}
+                  key={image.name}
                   className="w-28 h-28 border border-zinc-400 rounded-md"
-                  src={URL.createObjectURL(image)}
+                  src={image}
                   alt="product"
                 />
               )
@@ -97,7 +108,7 @@ const ProductDetails = () => {
           onChange={handleChange}
           required
         ></textarea>
-        <button className='btn' type='submit'>Finish</button>
+        <button className='btn mt-5 p-2 w-28' type='submit'>Finish</button>
       </form>
     </div>
   )

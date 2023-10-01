@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import AdminDetails from '../components/AdminDetails'
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import { createAdmins, deleteAdmins } from '../redux/adminSlice';
 
 const Admins = () => {
   // React Hooks
-  const [admins, setAdmins] = useState([])
+  const { adminList: admins, user } = useSelector(state => state.user)
   const [status, setStatus] = useState('Loading...')
+  const [error, setError] = useState()
+  const dispatch = useDispatch() 
   
   // Functions
   const login = useGoogleLogin({
@@ -23,7 +27,7 @@ const Admins = () => {
         try{
           const resp = await axios.post(`${process.env.REACT_APP_PATH}/admin/create`,{email, username, image})
           const data = await resp.data
-          setAdmins([...admins,data])
+          dispatch(createAdmins(data))
         }catch(e){
           console.log(e)
         }
@@ -32,32 +36,14 @@ const Admins = () => {
       }
     }
   });
-  const handleDelete = (id) => {
+  const handleDelete = async(id) => {
     try{
-      axios.delete(`${process.env.REACT_APP_PATH}/admin/${id}`)
-      const newAdmins = admins.filter(admin => admin._id !== id)
-      setAdmins(newAdmins)
+      await axios.delete(`${process.env.REACT_APP_PATH}/admin/${id}`)
+      dispatch(deleteAdmins(id))
     }catch(e){
-      console.log(e)
+      console.log('Something went wrong')
     }
   }
-
-  // useEffect
-  useEffect(() => {
-    const adminDetail = async() => {
-      try{
-        const {data} = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
-        if(data.length <= 0) {
-          setStatus("No Admins")
-          return 0
-        }
-        setAdmins(data)
-      }catch(e){
-        setStatus('Something went wrong')
-      }
-    }
-    adminDetail()
-  },[])
 
   return (
     <div className='font-semibold'>
@@ -69,7 +55,7 @@ const Admins = () => {
         </div>
       </div>
       <div className='flex flex-col mt-4 font-medium text-sm'>
-        Existing Admins
+        Other Existing Admins
         <div className='mt-3 bg-white p-3 shadow-lg'>
           <table className='text-sm w-full text-left space-y-2'>
             <thead>
@@ -84,7 +70,7 @@ const Admins = () => {
             <tbody>
               {
                 admins ?
-                admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin}/>) :
+                admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin} currentId={user._id}/>) :
                 <tr>
                   <td> {status} </td>
                 </tr>

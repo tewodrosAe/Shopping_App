@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { addUser } from './redux/adminSlice'
+import { addAdmins, addUser } from './redux/adminSlice'
 import { Admins, Categories, Dashboard, Orders, ProductDetails, Products } from './pages'
 import Login from './pages/Login'
 import { BasicLayout } from './layout/BaseLayout'
@@ -20,13 +20,20 @@ const App = () => {
       const current = localStorage.getItem('user')
       if(current){
         try{
+          // Login admin
           const user = await axios.post(`${process.env.REACT_APP_PATH}/admin/search`,JSON.parse(current))
           dispatch(addUser(user.data))
+
+          // Get categories
           const categories = await axios.get(`${process.env.REACT_APP_PATH}/category/`)
           dispatch(getCategory(categories.data))
+
+          // Get Admin list
+          const {data} = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
+          dispatch(addAdmins(data))
           setLoading(false)
         }catch(e){
-          console.log('something went wrong')
+          console.log('Something went wrong')
         }
       }
       setLoading(false)
