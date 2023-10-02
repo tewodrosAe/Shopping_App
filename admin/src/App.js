@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import { BasicLayout } from './layout/BaseLayout'
 import axios from 'axios'
 import { getCategory } from './redux/categorySlice'
+import { getProducts } from './redux/productSlice'
 
 
 const App = () => {
@@ -20,17 +21,22 @@ const App = () => {
       const current = localStorage.getItem('user')
       if(current){
         try{
-          // Login admin
+          // Login Admin
           const user = await axios.post(`${process.env.REACT_APP_PATH}/admin/search`,JSON.parse(current))
           dispatch(addUser(user.data))
 
-          // Get categories
+          // Get Categories
           const categories = await axios.get(`${process.env.REACT_APP_PATH}/category/`)
           dispatch(getCategory(categories.data))
 
-          // Get Admin list
-          const {data} = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
-          dispatch(addAdmins(data))
+          // Get Admin List
+          const admins = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
+          dispatch(addAdmins(admins.data))
+
+          // Get Products
+          const product = await axios.get(`${process.env.REACT_APP_PATH}/product/`)
+          dispatch(getProducts(product.data))
+          
           setLoading(false)
         }catch(e){
           console.log('Something went wrong')

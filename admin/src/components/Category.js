@@ -46,7 +46,7 @@ const Category = ({ data }) => {
     console.log('hey')
     try{
       const id = data._id
-      const deleted = await axios.post(`${process.env.REACT_APP_PATH}/category/delete`,{id})
+      await axios.post(`${process.env.REACT_APP_PATH}/category/delete`,{id})
       dispatch(removeCategory(data._id))
     }catch(e){
       setError(e.error)

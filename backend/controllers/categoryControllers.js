@@ -4,7 +4,7 @@ import Category from "../models/categoryModels.js"
 
 const createCategory = async(req,res) => {
     const { categories } = req.body
-    const exist = await Category.exists({category: categories.category})
+    const exist = await Category.exists(categories)
     if(exist){
         return res.status(400).json({error:'Category already exists'})
     }
@@ -12,6 +12,7 @@ const createCategory = async(req,res) => {
         const resp = await Category.create(categories)
         res.status(200).json(resp)
     }catch(e){
+        console.log(e)
         res.status(400).json({error: e})
     }
 }

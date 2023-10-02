@@ -11,7 +11,7 @@ const Categories = () => {
   // React Hooks
   const {category} = useSelector(state => state.category)
   const dispatch = useDispatch()
-  const [dropDown, setDropDown] = useState()
+  const [parentCategory, setParentCategory] = useState()
   const [details, setDetails] = useState('')
   const [error, setError] = useState()
   
@@ -28,7 +28,7 @@ const Categories = () => {
     }
     const categories = {
       category: details,
-      parentCategory: dropDown && dropDown.parentCategory
+      parentCategory: parentCategory && parentCategory
     }
     try{
       const res = await axios.post(`${process.env.REACT_APP_PATH}/category/create`,{categories})
@@ -44,7 +44,7 @@ const Categories = () => {
         Create new category
          <div className='w-full flex gap-5 items-start mt-2'>
           <input name='category' value={details.category} onChange={handleChange} type="text" className='product-input w-full h-9 ' />
-          <DropDown name='parentCategory' datas={parentCategories} onChange={handleChange} dropDown={dropDown} setDropDown={setDropDown}/>
+          <DropDown name='parentCategory' datas={parentCategories} dropDown={parentCategory} setDropDown={setParentCategory}/>
         </div>
         {
           error && <div className='text-xs font-semibold text-red-500'> *{error} </div>

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addAdmins, addUser } from '../redux/adminSlice';
 import { getCategory } from '../redux/categorySlice';
+import { getProducts } from '../redux/productSlice';
 
 const Login = () => {
     //React hooks
@@ -22,11 +23,22 @@ const Login = () => {
         if(data.error){
             setError(data.error)
         }else{
+            // Get Categories
             const categories = await axios.get(`${process.env.REACT_APP_PATH}/category/`)
             dispatch(getCategory(categories.data))
+            
+            // Add User
             dispatch(addUser(decoded))
+
+            // Get Admins
             const admin = await axios.get(`${process.env.REACT_APP_PATH}/admin/`)
             dispatch(addAdmins(admin.data))
+
+            // Get Products
+            const product = await axios.get(`${process.env.REACT_APP_PATH}/product/`)
+            dispatch(getProducts(product.data))
+
+            // Save to local storage and navigate to home
             localStorage.setItem('user', JSON.stringify(data))
             navigate('/')
         }

@@ -1,24 +1,32 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 import { BsUpload } from 'react-icons/bs'
 import MultipleDropDown from '../components/MultipleDropDown'
 import { properties } from '../constants'
-
+import DropDown from '../components/DropDown'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProducts } from '../redux/productSlice'
+import {InfinitySpin} from 'react-loader-spinner'
 
 const ProductDetails = () => {
   // React Hooks
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const {category: data} = useSelector(state => state.category)
   const [productDetail, setProductDetail] = useState({
     name: '',
-    category: '',
     price: '',
     description: '',
   })
   const [color,setColor] = useState([])
+  const [category,setCategory] = useState()
   const [storage,setStorage] = useState([])
   const [images, setImages] = useState([])
   const [error, setError] = useState(false)
-  
-  // Functions
+  const [loading, setLoading] = useState(true)
+  document.body.style.overflow = "hidden"
+  // Eventhandlers
   const handleChange = (e) => {
     const name = e.target.name
     setProductDetail({...productDetail,[name]:e.target.value})
@@ -46,24 +54,47 @@ const ProductDetails = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault()
-   /*  const data = {productDetail, images, property:{color, storage}}
-    console.log(data) */
-    const resp = await axios.post(`${process.env.REACT_APP_PATH}/product/create`, {images})
-    console.log(resp)
+    setLoading(true)
+    document.body.style.overflow = "hidden"
+    const {name, price, description} = productDetail
+    const property = {
+      storage,
+      color
+    }
+    try{
+      const resp = await axios.post(`${process.env.REACT_APP_PATH}/product/create`, {name, category, price, property, description, images})
+      dispatch(addProducts(resp.data))
+      document.body.style.overflow = "visible"
+      navigate(-1)
+      setLoading(false)
+    }catch(e){
+      console.log('Something went wrong!')
+      setLoading(false)
+    }
   }
-  console.log(images)
 
+ 
   return (
-    <div>
+    <div className={`${loading ? 'h-full overflow-hidden': 'overflow-visible'}`}>
+      <div className={`flex flex-col items-center justify-center fixed top-0 left-0 h-screen w-screen z-30 overflow-hidden bg-white/80 ${loading ? 'block' : 'hidden'}`}>
+        <InfinitySpin 
+          width='200'
+          color="purple"
+        />
+        <div className='mb-5 text-black'>
+          Wait a minute...
+        </div>
+      </div>
       <h1 className="font-semibold"> Product Details </h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-1 mt-6 text-product text-gray-600 font-medium"
+        className='flex flex-col gap-1 mt-6 text-product text-gray-600 font-medium'
+        
       >
         <label> Product name </label>
         <input name='name' value={productDetail.name} onChange={handleChange} type="text" className="product-input" required/>
         <label> Category </label>
-        <input name='category' value={productDetail.category} onChange={handleChange} type="text" className="product-input" required/>
+        <DropDown name='category' datas={data} dropDown={category} setDropDown={setCategory} object={true}/>
         <label> Price($) </label>
         <input name='price' value={productDetail.price} onChange={handleChange} type="number" min={1} className="product-input" required/>
         <label> Color </label>
@@ -108,7 +139,7 @@ const ProductDetails = () => {
           onChange={handleChange}
           required
         ></textarea>
-        <button className='btn mt-5 p-2 w-28' type='submit'>Finish</button>
+        <button className='btn mt-5 p-2 w-28' type='submit' disabled={loading}>Finish</button>
       </form>
     </div>
   )

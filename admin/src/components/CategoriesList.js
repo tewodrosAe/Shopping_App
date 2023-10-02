@@ -10,7 +10,7 @@ const CategoriesList = ({title,category}) => {
         <div className='w-full h-single bg-black/20 mt-1 mb-3'/>
         <div className='flex flex-col gap-5'> 
             {
-              category.map(c => <Category key={c.category} data={c}/>)
+              category.map(c => <Category key={c._id} data={c}/>)
             }
         </div>
       </div>
