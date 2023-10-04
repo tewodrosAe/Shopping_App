@@ -33,7 +33,7 @@ const MultipleDropDown = ({title,property,datas,setProperty}) => {
     return (
         <div className='w-3/4' >
             <div className="flex h-12 items-center justify-between px-4 rounded-lg cursor-pointer bg-white shadow-md " onClick={handleView}>
-                <span className="text-base text-slate-600">{property.length <= 0 ? "Select Language": property.toString()}</span>
+                <span className="text-base text-slate-600">{property.length <= 0 ? `Select ${title}`: property.toString()}</span>
                 <span className='border rounded-full p-1 border-slate-400'>
                     <AiOutlineDown size={17} color='black'/>
                 </span>

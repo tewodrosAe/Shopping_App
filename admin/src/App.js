@@ -60,7 +60,7 @@ const App = () => {
           <Route path='/' element={user.email ? <BasicLayout/> : <Navigate to='/login'/>}>
             <Route  path='/' element={<Dashboard/>}/>
             <Route path='/products' element={<Products/>}/>
-            <Route path='/productdetails/:id' element={<ProductDetails/>}/>
+            <Route path='/productdetails/:productId' element={<ProductDetails/>}/>
             <Route path='/categories' element={<Categories/>}/>
             <Route path='/orders' element={<Orders/>}/>
             <Route path='/admins' element={<Admins/>}/>

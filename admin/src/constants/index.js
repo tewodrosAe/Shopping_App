@@ -1,5 +1,6 @@
 export const properties = {
     colors : [
+        'transparent',
         'red',
         'white',
         'blue',
@@ -10,6 +11,7 @@ export const properties = {
         'orange'
     ],
     storage : [
+        0,
         16,
         32,
         64,

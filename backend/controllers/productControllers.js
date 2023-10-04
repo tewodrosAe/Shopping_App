@@ -1,21 +1,11 @@
+import mongoose from 'mongoose'
 import cloudinary from '../cloudinary/index.js'
 import Product from '../models/productModels.js'
+import {imageCreator} from '../utils/index.js'
 
 const createProduct = async (req, res) => {
   const { name, category, price, images, property, description } = req.body
-  const picture = []
-  for (const image of images) {
-    try {
-      const result = await cloudinary.uploader.upload(image, {
-        upload_preset: 'Tech_shop',
-        public_id: `product${Math.random() * 1000}`,
-        allowed_formats: ['jpeg', 'png', 'jpg', 'webp'],
-      })
-      picture.push(result.secure_url)
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  const picture = await imageCreator(images)
   try{
     const product = await Product.create({name, category, price, property, picture, description})
     res.status(200).json(product)
@@ -26,12 +16,48 @@ const createProduct = async (req, res) => {
 
 const getProducts = async (req, res) => {
   try {
-    const product = await Product.find().select('name category price')
+    const product = await Product.find().select('name category price picture')
     res.status(200).json(product)
   } catch (e) {
     res.status(400).json({ error: e })
   }
 }
+
+const getProduct = async (req, res) => {
+  const { productId } = req.params  
+  if(!mongoose.Types.ObjectId.isValid(productId)){
+    return res.status(400).json({error: 'Invalid Product'})
+  }
+  try {
+    const product = await Product.findById(productId)
+    res.status(200).json(product)
+  } catch (e) {
+    res.status(400).json({ error: e })
+  }
+}
+
+const editProduct = async (req, res) => {
+  const { productId } = req.params  
+  if(!mongoose.Types.ObjectId.isValid(productId)){
+      return res.status(400).json({error: 'Something doesnt seem right'})
+  }
+  const {name, category, price, property, description, originalImages, images} = req.body
+  let picture = []
+  if(images.length > 0){
+    picture = await imageCreator(images)
+  }
+  picture = [...picture, ...originalImages]
+  if(picture.length <= 0){
+    return res.status(400).json({error: 'Something doesnt seem right'})
+  }
+  try{
+      const edited = await Product.findByIdAndUpdate(productId, {name, category, price, property, picture, description},{new:true})
+      res.status(200).json(edited)
+  }catch(e){
+      res.status(400).json({error:e})
+  }
+}
+
 
 const deleteProducts = async (req, res) => {
   const {id} = req.body
@@ -43,4 +69,4 @@ const deleteProducts = async (req, res) => {
     }
 }
 
-export { createProduct, getProducts, deleteProducts}
+export { createProduct, getProducts, deleteProducts, getProduct, editProduct}

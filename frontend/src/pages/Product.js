@@ -19,7 +19,7 @@ const Product = () => {
                         <img src="/dummyproduct.png" alt="product" />
                         <img src="/dummyproduct.png" alt="product" />
                     </div>
-                    <Magnifier src={"/dummyproduct.png"} width={340} zoomFactor={1}/>
+                    <Magnifier src={"/testimg/4.jpg"}height={422} zoomFactor={1}/>
 {/*                     <img src="/dummyproduct.png" alt="product" /> */}
                 </div>
                 <div className="product-info">

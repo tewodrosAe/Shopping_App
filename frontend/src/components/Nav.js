@@ -20,6 +20,7 @@ export default function Nav({setResult}) {
   const { user } = useSelector(state => state.user)
   const location = useLocation()
   const navigate = useNavigate()
+  const [hovered, setHovered] = useState()
 
   //functions
   const onToggleClick = () => {
@@ -34,7 +35,6 @@ export default function Nav({setResult}) {
   }
 
   const changeNav = () => {
-    console.log(window.scrollY)
       if(window.scrollY < 10){
         setTransparent(true)
       }
@@ -42,7 +42,9 @@ export default function Nav({setResult}) {
         setTransparent(false)
       }
     }
-    
+  const handleHover = (name) => {
+    setHovered(`${name}`)
+  }
   // useEffect
   useEffect(() => {
     if(location.pathname === '/'){
@@ -74,8 +76,10 @@ export default function Nav({setResult}) {
             key={nav.nav}
             to={nav.path}
             className={`light-theme ${transparent && "white-text"}`}
-          >
-            {nav.nav}
+            onMouseOver={() => setHovered(nav.nav)}
+            onMouseLeave={() => setHovered()}
+          >{nav.nav}
+            <div className={`custom-line ${hovered === nav.nav ? '': 'hidden'}`} id={`${hovered === nav.nav ? '': 'hidden'}`}/>
           </Link>
         ))}
       </ul>

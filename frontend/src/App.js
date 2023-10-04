@@ -7,16 +7,31 @@ import Cart from './pages/Cart';
 import { useDispatch } from 'react-redux';
 import { addUser } from './redux/userSlicer';
 import { addUserDetail } from './redux/userDetailSlicer';
+import axios from 'axios';
+import { path } from './constants';
+import { addProducts } from './redux/productSlice';
 function App() { 
   const [result, setResult] = useState('')
   const dispatch = useDispatch()
   useEffect(() => {
+    // Checking if user has logged in already and getting the details
     const users = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
     const userDetail = localStorage.getItem('userdetail')? JSON.parse(localStorage.getItem('userdetail')) : null
     if(users){
       dispatch(addUser(users))
       dispatch(addUserDetail(userDetail))
     }
+
+    // Getting all products
+    async function getProducts (){
+      try{
+        const products = await axios.get(`${path}/product`)
+        dispatch(addProducts(products.data))
+      }catch(e){
+        console.log('something went wrong')
+      }
+    }
+    getProducts()
   },[])
 
   return (

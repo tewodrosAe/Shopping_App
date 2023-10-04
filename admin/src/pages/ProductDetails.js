@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import { BsUpload } from 'react-icons/bs'
+import {AiFillDelete} from 'react-icons/ai'
 import MultipleDropDown from '../components/MultipleDropDown'
 import { properties } from '../constants'
 import DropDown from '../components/DropDown'
 import { useDispatch, useSelector } from 'react-redux'
-import { addProducts } from '../redux/productSlice'
+import { addProducts, editProduct} from '../redux/productSlice'
 import {InfinitySpin} from 'react-loader-spinner'
 
 const ProductDetails = () => {
@@ -14,6 +15,7 @@ const ProductDetails = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const {category: data} = useSelector(state => state.category)
+  const { productId } = useParams()
   const [productDetail, setProductDetail] = useState({
     name: '',
     price: '',
@@ -23,17 +25,26 @@ const ProductDetails = () => {
   const [category,setCategory] = useState()
   const [storage,setStorage] = useState([])
   const [images, setImages] = useState([])
+  const [originalImages, setOriginalImages] = useState(null)
   const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(true)
-  document.body.style.overflow = "hidden"
+  const [loading, setLoading] = useState(false)
+
+  // Constants
+  const edit = productId !== 'new'
+  
   // Eventhandlers
   const handleChange = (e) => {
-    const name = e.target.name
-    setProductDetail({...productDetail,[name]:e.target.value})
+    if(e.target?.name){
+      const name = e.target.name
+      setProductDetail({...productDetail,[name]:e.target.value})
+    }
   }
   const handleImage = (e) => {
     setError(false)
     const file = e.target.files[0]
+    if(!file){
+      return 0
+    }
     const type = file.name.split('.').slice(-1)[0]
     if (
       type === 'jpeg' ||
@@ -68,15 +79,55 @@ const ProductDetails = () => {
       navigate(-1)
       setLoading(false)
     }catch(e){
-      console.log('Something went wrong!')
+      console.log(e)
       setLoading(false)
     }
   }
 
- 
+  const handleDelete = (pic) => {
+    const newImage = originalImages.filter(image => image !== pic)
+    setOriginalImages(newImage)
+  }
+
+  const handleEdit = async(e) => {
+    e.preventDefault()
+    setLoading(true)
+    document.body.style.overflow = "hidden"
+    const {name, price, description} = productDetail
+    const property = {
+      storage,
+      color
+    }
+    try{
+      const resp = await axios.post(`${process.env.REACT_APP_PATH}/product/edit/${productId}`, {name, category, price, property, description, originalImages, images})
+      dispatch(editProduct(resp.data))
+      document.body.style.overflow = "visible"
+      navigate(-1)
+      setLoading(false)
+    }catch(e){
+      setError(true)
+      document.body.style.overflow = "visible"
+      setLoading(false)
+    }
+  }
+  // useEffect
+  useEffect(() => {
+    if(edit){
+    const getProduct = async() => {
+      const currentProduct = (await axios.get(`${process.env.REACT_APP_PATH}/product/${productId}`)).data
+      setProductDetail({name:currentProduct.name, price:currentProduct.price, description:currentProduct.description})
+      setColor(currentProduct.property.color)
+      setStorage(currentProduct.property.storage)
+      setCategory(currentProduct.category)
+      setOriginalImages(currentProduct.picture)
+    }
+    getProduct()
+  }
+  },[])
+
   return (
-    <div className={`${loading ? 'h-full overflow-hidden': 'overflow-visible'}`}>
-      <div className={`flex flex-col items-center justify-center fixed top-0 left-0 h-screen w-screen z-30 overflow-hidden bg-white/80 ${loading ? 'block' : 'hidden'}`}>
+    <div className={`${loading ? 'h-full overflow-hidden': 'overflow-visible'} transition ease-in duration-700`}>
+      <div className={`flex flex-col items-center justify-center fixed top-0 left-0 h-screen w-screen z-30 bg-white/40 backdrop-filter backdrop-blur-sm transition ease-in duration-700 overflow-hidden ${loading ? 'block' : 'hidden'}`}>
         <InfinitySpin 
           width='200'
           color="purple"
@@ -87,8 +138,8 @@ const ProductDetails = () => {
       </div>
       <h1 className="font-semibold"> Product Details </h1>
       <form
-        onSubmit={handleSubmit}
-        className='flex flex-col gap-1 mt-6 text-product text-gray-600 font-medium'
+        onSubmit={edit ? handleEdit :handleSubmit}
+        className='flex flex-col gap-1 mt-6 text-product text-gray-600 font-medium transition ease-in duration-700 '
         
       >
         <label> Product name </label>
@@ -103,11 +154,26 @@ const ProductDetails = () => {
         <MultipleDropDown title='storage' datas={properties.storage} setProperty={setStorage} property={storage}/>
         <label className='mt-3'> Photos </label>
         <div className="flex gap-3">
+          {
+            originalImages &&
+            originalImages.map((pic) => {
+              return (
+                <div className='relative' key={pic}>
+                  <img
+                    className="w-28 h-28 border border-zinc-400 rounded-md"
+                    src={pic}
+                    alt="product"
+                  />
+                  <AiFillDelete size={22} onClick={() => handleDelete(pic)} className='absolute top-0 right-1 text-xl bg-slate-200 p-px mt-1 text-red-600 border border-slate-700 rounded-md cursor-pointer'/>
+                </div>
+              )
+            })
+          }
           {images.length > 0 &&
             images.map((image) => {
               return (
                 <img
-                  key={image.name}
+                  key={image}
                   className="w-28 h-28 border border-zinc-400 rounded-md"
                   src={image}
                   alt="product"
@@ -126,7 +192,7 @@ const ProductDetails = () => {
         </div>
         {error && (
           <p className="text-xs text-red-500 mt-1 mb-3">
-            * Only jpg, jpeg, png and webp files are permitted
+            * Please upload an image of type jpg, jpeg, png and webp file
           </p>
         )}
         <label> Description </label>

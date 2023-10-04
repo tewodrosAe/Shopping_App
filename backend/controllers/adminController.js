@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
 const createToken  = (email) => {
-    return jwt.sign({email}, process.env.SECRET, {expiresIn:'3d'})
+    return jwt.sign({email}, process.env.ADMIN_SECRET, {expiresIn:'3d'})
 }
 const getAdmins = async(req,res) => {
     try{
@@ -17,7 +17,7 @@ const getAdmins = async(req,res) => {
 
 const getAdmin = async(req,res) => {
     const {token} = req.body
-    const {email} = jwt.verify(token, process.env.SECRET)
+    const {email} = jwt.verify(token, process.env.ADMIN_SECRET)
     try{
         const user = await Admin.findOne({email})
         if(!user){

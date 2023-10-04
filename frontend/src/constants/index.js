@@ -42,3 +42,5 @@ export const navs = [
     { nav: 'Sale', path: '/sale' },
     { nav: 'Contact', path: '/contact' },
   ]
+
+export const path = 'http://localhost:5000/api/v1' 

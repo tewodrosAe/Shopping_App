@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux'
 
 
 const Products = () => {
+  // React Hooks
   const navigate = useNavigate()
   const {products} = useSelector(state => state.product)
+
   return (
     <div className='shadow-md'>
       <button className='bg-btn px-4 py-1 text-white text-sm rounded-md font-medium hover:shadow-sky-200 hover:shadow-md' onClick={() => navigate('/productdetails/new')}> Add new product </button>
