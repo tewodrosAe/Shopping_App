@@ -82,7 +82,7 @@ body {
   position: fixed;
   top: 0;
   right: 0;
-  background-color: transparent;
+  background-color: white;
   border-bottom: 1px solid;
   border-color: #d3d0d0;
   display: flex;
