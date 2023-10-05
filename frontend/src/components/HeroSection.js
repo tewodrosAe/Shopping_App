@@ -2,7 +2,7 @@ import HeroCard from './HeroCard.js'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 
-function HeroSection() {
+function HeroSection({products}) {
   const imgVariants = {
     animate : {
       y:[0,5,0], 
@@ -47,10 +47,9 @@ function HeroSection() {
             <h1>THIS MONTH</h1>
           </div>
           <div className='hero-card-col'>
-            <HeroCard/>
-            <HeroCard/>
-            <HeroCard/>
-            <HeroCard/>
+            {
+              products.slice(0,5).map(product => <HeroCard key={product._id} product={product}/>)
+            }
         </div>
         </div>
     </div>

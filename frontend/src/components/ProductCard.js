@@ -2,7 +2,7 @@ import React from 'react'
 
 function ProductCard ({slide, product, number}) {
   return (
-    <div className={`product-card ${slide && "slide-card"}`}>
+    <div className={`product-card pointer ${slide && "slide-card"}`}>
         <div className='product-card-img' >
           {<img src={`${product?.picture[0]}`} alt={`${product?.name}`}/>}
         </div>
