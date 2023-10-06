@@ -1,8 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function ProductCard ({slide, product, number}) {
+function ProductCard ({slide, product}) {
+  // React hooks
+  const navigate = useNavigate()
   return (
-    <div className={`product-card pointer ${slide && "slide-card"}`}>
+    <div className={`product-card pointer ${slide && "slide-card"}`} onClick={() => navigate(`/product/${product._id}`)}>
         <div className='product-card-img' >
           {<img src={`${product?.picture[0]}`} alt={`${product?.name}`}/>}
         </div>

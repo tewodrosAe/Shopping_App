@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-function BestSellers() {
+function BestSellers({products}) {
   return (
     <div className="products-section ">
       <h1 className="products-section-head">Best Sellers</h1>
@@ -20,21 +20,13 @@ function BestSellers() {
       slidesPerView={'auto'}
       onSlideChange={() => console.log('slide change')}
       >
-        <SwiperSlide>
-          <ProductCard slide={true} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProductCard slide={true} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProductCard slide={true} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProductCard slide={true} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ProductCard slide={true} />
-        </SwiperSlide>
+        {
+          products.map(product => (
+            <SwiperSlide>
+              <ProductCard product={product} slide={true} />
+            </SwiperSlide>
+          ))
+        }
       </Swiper>
     </div>
   )

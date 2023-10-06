@@ -16,7 +16,7 @@ function ProductSection({products}) {
       </div>
     </div>
     <UpcomingSection/>
-    <BestSellers />
+    <BestSellers products={products}/>
     </>
   )
 }

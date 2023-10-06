@@ -79,7 +79,7 @@ export default function Nav({setResult}) {
             onMouseOver={() => setHovered(nav.nav)}
             onMouseLeave={() => setHovered()}
           >{nav.nav}
-            <div className={`custom-line ${hovered === nav.nav ? '': 'hidden'}`} id={`${hovered === nav.nav ? ' ': 'hidden'}`}/>
+            <div className={`custom-line ${!transparent && "white-customline"}`} id={`${hovered === nav.nav ? ' ': 'hidden'}`}/>
           </Link>
         ))}
       </ul>

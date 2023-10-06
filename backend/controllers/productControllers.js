@@ -26,13 +26,13 @@ const getProducts = async (req, res) => {
 const getProduct = async (req, res) => {
   const { productId } = req.params  
   if(!mongoose.Types.ObjectId.isValid(productId)){
-    return res.status(400).json({error: 'Invalid Product'})
+    return res.status(400).json({error: 'Product doesnt exist!'})
   }
   try {
     const product = await Product.findById(productId)
     res.status(200).json(product)
   } catch (e) {
-    res.status(400).json({ error: e })
+    res.status(400).json({ error: 'Product doesnt exist!' })
   }
 }
 
