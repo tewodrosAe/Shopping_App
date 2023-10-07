@@ -1,8 +1,9 @@
 import { AiOutlineClose, AiFillCrown } from 'react-icons/ai'
 import { BiSearchAlt } from 'react-icons/bi'
 import { motion } from 'framer-motion'
-import { useEffect, useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 const variants = {
@@ -15,28 +16,40 @@ const variants = {
   },
   closed: {
     display: 'block',
+    height: 'fit-content',
     opacity: 1,
   },
 }
 
-const SearchBar = ({setSearch, search, setResult, setToggleSearch ,toggleSearch}) => {
+const SearchBar = ({ setToggleSearch ,toggleSearch }) => {
     // React hooks
     const navigate = useNavigate()
+    const {products} = useSelector(state => state.product)
     const location = useLocation()
+    const [search, setSearch] = useState()
     const menu = useRef(null)
+    let [searchParams, setSearchParams] = useSearchParams();
     
     // functions
     const handleSubmit = (e,res) => {
         e.preventDefault()
         setToggleSearch(toggle => !toggle)
-        navigate('/search')
         if(res){
-            setSearch(res)
-            setResult(res)
+            navigate({
+                pathname: "search",
+                search: createSearchParams({
+                    q: res
+                }).toString()
+            })
         }else{
-            setResult(search)
+            navigate({
+                pathname: "search",
+                search: createSearchParams({
+                    q: search
+                }).toString()
+            })
         }
-        }  
+    }  
 
     // useEffect hook    
     useEffect(() => {
@@ -53,7 +66,7 @@ const SearchBar = ({setSearch, search, setResult, setToggleSearch ,toggleSearch}
         return () => {
             document.removeEventListener('mousedown',clickedOutside)
         }
-    })
+    },[])
 
     return (
         <motion.form
@@ -73,7 +86,6 @@ const SearchBar = ({setSearch, search, setResult, setToggleSearch ,toggleSearch}
                 placeholder="Search a product..."
                 value={search}
                 onChange={(e) => {
-                    e.stopPropagation()
                     setSearch(e.target.value)
                 }}
                 />
@@ -81,7 +93,6 @@ const SearchBar = ({setSearch, search, setResult, setToggleSearch ,toggleSearch}
                 style={{ marginLeft: 'auto', cursor: 'pointer' }}
                 color="rgb(100,100,100)"
                 onClick={(e) => {
-                    e.stopPropagation()
                     setSearch('')
                 }}
                 />
@@ -92,13 +103,12 @@ const SearchBar = ({setSearch, search, setResult, setToggleSearch ,toggleSearch}
                 Popular
             </h4>
             <motion.ul>
-                <motion.li onClick={    
-                    (e) => {
-                        handleSubmit(e,"Samsung s22");
-                    }}>Samsung s22</motion.li>
-                <motion.li>Iphone 12</motion.li>
-                <motion.li>Acer xertwo</motion.li>
-                <motion.li>Iphone 14 pro max charger</motion.li>
+                {
+                    products.slice(2,7).map( product => (<motion.li key={product._id} onClick={    
+                        (e) => {
+                            handleSubmit(e,product.name);
+                        }}>{product.name}</motion.li>))
+                }
             </motion.ul>
             </motion.form>
     )

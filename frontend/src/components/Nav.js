@@ -11,11 +11,10 @@ import { useSelector } from 'react-redux'
 import UserDetail from './UserDetail'
 import { disableScroll } from '../utils'
 
-export default function Nav({setResult}) {
+export default function Nav() {
   // react hooks
   const [pos, setPos] = useState('180vw')
   const [toggleSearch, setToggleSearch] = useState(false)
-  const [search, setSearch] = useState('')
   const [transparent, setTransparent] = useState(true)
   const { user } = useSelector(state => state.user)
   const location = useLocation()
@@ -79,7 +78,7 @@ export default function Nav({setResult}) {
             onMouseOver={() => setHovered(nav.nav)}
             onMouseLeave={() => setHovered()}
           >{nav.nav}
-            <div className={`custom-line ${!transparent && "white-customline"}`} id={`${hovered === nav.nav ? ' ': 'hidden'}`}/>
+            <div className={`custom-line ${!transparent && "white-customline"} ${hovered === nav.nav ? ' ': 'hidden'}`} />
           </Link>
         ))}
       </ul>
@@ -90,9 +89,6 @@ export default function Nav({setResult}) {
           onClick={() => setToggleSearch((toggle) => !toggle)}
         />
         <SearchBar
-          setSearch={setSearch} 
-          search={search}
-          setResult={setResult}
           setToggleSearch={setToggleSearch}
           toggleSearch={toggleSearch}
         />

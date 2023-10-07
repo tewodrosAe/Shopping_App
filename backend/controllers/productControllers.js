@@ -58,6 +58,20 @@ const editProduct = async (req, res) => {
   }
 }
 
+const updateProductComment = async(req,res) => {
+  const {productId,comment} = req.body
+  const updated = await Product.where('_id').equals(productId)
+  if()
+  try{
+    const updated = await Product.findByIdAndUpdate(productId,
+        {'$push':{comments:comment}},
+        {'new':true, 'upsert': true }
+      )
+    res.status(200).json(updated)
+  }catch(e){
+    res.status(400).json({error: e})
+  }
+}
 
 const deleteProducts = async (req, res) => {
   const {id} = req.body
@@ -69,4 +83,4 @@ const deleteProducts = async (req, res) => {
     }
 }
 
-export { createProduct, getProducts, deleteProducts, getProduct, editProduct}
+export { createProduct, getProducts, deleteProducts, getProduct, editProduct, updateProductComment}

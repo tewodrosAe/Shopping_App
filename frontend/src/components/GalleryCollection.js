@@ -2,7 +2,7 @@ import ItemCategories from "../components/ItemCategories"
 import Filter from "../components/Filter"
 import ProductCard from "../components/ProductCard"
 
-function GalleryCollection({title,result}) {
+function GalleryCollection({title,result, products}) {
     return (
             <div className="gallery">
                 <div className="gallery-container">
@@ -14,14 +14,12 @@ function GalleryCollection({title,result}) {
                         </div>}
                         <Filter/>
                         <div className="gallery-cards">
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
-                            <ProductCard/>
+                            {   products.length > 0 ?
+                                products.map(product => <ProductCard key={product._id} product={product}/>) :
+                                <div className="not-found">
+                                    Ooops! No product found
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

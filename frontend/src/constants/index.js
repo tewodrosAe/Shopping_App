@@ -29,12 +29,7 @@ export const filters = [
     'Others',
 ]
 
-export const colors = [
-    '#983333',
-    '#1234ff',
-    '#be34ff',
-    '#42e4gf'
-]
+
 
 export const navs = [
     { nav: 'Home', path: '/' },

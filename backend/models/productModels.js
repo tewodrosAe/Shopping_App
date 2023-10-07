@@ -4,9 +4,23 @@ const Schema = mongoose.Schema
 
 const reviewSchema = new Schema(
   {
-    name: String,
-    stars: Number,
-    review: String,
+    name: {
+      type: String,
+      required: true
+    },
+    stars: {
+      type: Number,
+      required: true
+    },
+    review: {
+      type: String,
+      required: true
+    },
+    user_id:{
+      type: String,
+      unique: true,
+      required: true
+    }
   },
   { timestamps: true },
 )

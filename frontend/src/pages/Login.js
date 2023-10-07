@@ -29,10 +29,6 @@ const Login = () => {
       if(!result.error && result.payload){
         setUserDetail(initialState)
         dispatch(getUserDetails(result.payload.token))
-        .then(res => {
-          const {username,profile} = res.payload
-          localStorage.setItem('userdetail',JSON.stringify({username,profile}))
-        })
         localStorage.setItem('user',JSON.stringify(result.payload))
         navigate('/')
       }

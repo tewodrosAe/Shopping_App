@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AiOutlineInfoCircle, AiOutlineLogout } from 'react-icons/ai'
-import { useNavigate } from 'react-router-dom'
+
 
 const UserDetail = ({classname}) => {
     // React hooks
     const {detail} = useSelector(state => state.userDetail)
     const [clicked,setClicked] = useState(false)
     const menu = useRef()
-    const navigate = useNavigate()
+
     // Event functions
     const logout = () =>{
         localStorage.removeItem('user')

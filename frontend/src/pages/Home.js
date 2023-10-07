@@ -1,15 +1,16 @@
 // Importing the components of Home page
+import {useSelector} from 'react-redux'
 import HeroSection from '../components/HeroSection'
 import ProductSection from '../components/ProductSection';
 import Comments from '../components/Comments';
-import {useSelector} from 'react-redux'
+
  
-const Home = ({isDark}) =>{
+const Home = () =>{
     const {products} = useSelector(state => state.product)
-    return(
+    return( 
         <div className="home" >
             <HeroSection products={products}/>
-            <ProductSection products={products}/>
+            <ProductSection products={products} />
             <Comments />
         </div>
     )

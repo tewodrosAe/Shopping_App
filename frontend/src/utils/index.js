@@ -1,4 +1,4 @@
-import { initialReducer } from "../redux/userSlicer"
+
 
 export const errorChecker = (userDetail) =>{
     const errors = {}
