@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { filters } from '../constants'
 /* import {FaFilter} from 'react-icons/fa' */
 
-function Filter() {
-  const [isActive, setIsActive] = useState(filters[0])
+function Filter({filtered, setFiltered}) {
+  const [isActive, setIsActive] = useState('All Products')
   const filterClicked = (filter) => {
     setIsActive(filter)
+    setFiltered(filter)
   }
   return (
     <div className='products-filter'>

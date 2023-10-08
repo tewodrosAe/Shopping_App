@@ -74,12 +74,30 @@ const Product = () => {
               <h2>{product &&  product.name}</h2>
               <div className="product-rating">
                 <AiFillStar size={35} />
-                4.6 (3.5k ratings)
+                {
+                  product &&
+                  product.comments.length > 0 ?
+                  <div>
+                    {(product.comments.reduce((result,comment) => result + comment.stars,0) / product.comments.length).toFixed(2)  } ({`${product.comments.length} ratings`})
+                  </div>
+                  :
+                  <div>
+                    No rating
+                  </div>
+                }
               </div>
               <div className="price">
                 Price: ${product && product?.price}
               </div>
-              <p> Visit apple store </p>
+               {
+              product &&
+              product.property.storage.length > 0 &&
+              product.property.storage[0] > 0 ?
+              <ul className='product-storage'>
+              Storage: {product.property.storage.sort().map(s => <li key={s}> {s}GB </li>)}
+              </ul>:
+              ''
+              } 
               <div className="product-breakline" />
               <div className="product-color">
                 <h3>Color</h3>
@@ -140,16 +158,15 @@ const Product = () => {
               <div className="product-review">
                 {
                    detail ?
-                    <ProductComment productId={productId} detail={detail}/>:
+                    <ProductComment productId={productId} detail={detail} setProduct={setProduct}/>:
                   <button className='product-review-button' style={{marginLeft: '43%'}} onClick={() => navigate('/user/login')}>Login to Comment</button>
                 }
                 <div className='product-breakline' style={{ marginTop: '5vh', opacity:0.5}}/>
                 <div className='product-breakline' style={{opacity:0.5}}/>
                 <div className="product-comments">
-                  <UserComment/>
-                  <UserComment/>
-                  <UserComment/>
-                  <UserComment/>
+                  {
+                    product.comments.map(comment =>  <UserComment key={comment} comment={comment}/>)
+                  }
                 </div>
               </div>
             }

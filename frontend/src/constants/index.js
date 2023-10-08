@@ -38,4 +38,14 @@ export const navs = [
     { nav: 'Contact', path: '/contact' },
   ]
 
+export const filtersTwo = [
+    'All Products',
+    'Mobile Phones',
+    'Laptop Computers',
+    'Head Phones',
+    'Smart Televisions',
+    'Game Consoles',
+    'Others',
+]
+
 export const path = 'http://localhost:5000/api/v1' 

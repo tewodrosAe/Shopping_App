@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { initialReducer, userLogin } from '../redux/userSlicer'
 import { errorChecker } from '../utils'
 import { getUserDetails } from '../redux/userDetailSlicer'
-
+import Loading from '../components/Loading'
 const Login = () => {
   // react hooks
   const navigate = useNavigate()
@@ -36,6 +36,10 @@ const Login = () => {
   }
 
   return (
+    <>
+    {
+      loading ?
+      <Loading words={'Logging you in :)...'}/> :
     <div className="user-container">
       <div className="user-form-container">
         <IoCloseOutline size={25} onClick={() => navigate('/')}/>
@@ -97,6 +101,8 @@ const Login = () => {
         </form>
       </div>
     </div>
+    }
+    </>
   )
 }
 

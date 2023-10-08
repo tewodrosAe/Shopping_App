@@ -60,8 +60,11 @@ const editProduct = async (req, res) => {
 
 const updateProductComment = async(req,res) => {
   const {productId,comment} = req.body
-  const updated = await Product.where('_id').equals(productId)
-  if()
+  const exists = await Product.where('_id').equals(productId).find({"comments.user_id":comment.user_id})
+
+  if(exists.length > 0){
+    return res.status(400).json({error: 'You have already made a comment for the product :('})
+  }
   try{
     const updated = await Product.findByIdAndUpdate(productId,
         {'$push':{comments:comment}},

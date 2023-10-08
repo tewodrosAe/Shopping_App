@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import { disableScroll } from "../utils"
+import { filtersTwo } from "../constants"
 
-function ItemCategories() {
+function ItemCategories({ setFilteredTwo, setFiltered }) {
   // react hook initialization
   const[clicked,setClicked] = useState(false) 
   const menu = useRef()
   
   // dropdown function
-  const itemDropdown = () => {
+  const itemDropdown = (e) => {
     let disable = true
+    setFilteredTwo(e.target.innerText)
+    setFiltered('All Products')
     if(!clicked){
       disableScroll(disable)
       setClicked(true)
@@ -46,12 +49,9 @@ function ItemCategories() {
                     </svg>}ITEM CATEGORIES
             </div>
             <ul>
-              <li onClick={itemDropdown}>Mobile Phones</li>
-              <li onClick={itemDropdown}>Laptop Computers</li>
-              <li onClick={itemDropdown}>Head Phones</li>
-              <li onClick={itemDropdown}>Smart Televisions</li>
-              <li onClick={itemDropdown}>Game Consoles</li>
-              <li onClick={itemDropdown}>Other Accessories</li>
+              {
+                filtersTwo.map(filter => <li onClick={itemDropdown}>{filter}</li>)
+              }
             </ul>
       </div>
     </>
