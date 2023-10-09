@@ -60,6 +60,6 @@ const userDetailSlicer = createSlice({
     }
 })
 
-export const {addUserDetail} = userDetailSlicer.actions
+export const {addUserDetail } = userDetailSlicer.actions
 
 export default userDetailSlicer.reducer

@@ -1,4 +1,5 @@
 import CartItem from "../components/CartItem"
+import PayButton from "../components/PayButton"
 import UserNotFound from "../components/UserNotFound"
 import { cartTitles, footerTwo } from "../constants"
 import {BsFillBagCheckFill} from 'react-icons/bs'
@@ -6,6 +7,8 @@ import { useSelector } from 'react-redux'
 
 const Cart = () => {
   const { detail } = useSelector(state => state.userDetail)
+  const { cart } = useSelector(state => state.cart)
+  
   return (
     <div className="cart">
       <h1>Your Cart</h1>
@@ -18,16 +21,22 @@ const Cart = () => {
         </ul>
         <div className='break cart-breakline'/>
         <div className="cart-items">
-          {footerTwo.map((foot) => <CartItem key={foot}/>) }
+          {cart.map((c) => <CartItem key={c._id} cart={c}/>) }
         </div>
-        <div className="item-subtotal">
-          <div className="item-subtotal-grid">
-            <h2>SUBTOTAL</h2>
-            <span>$4500</span>
-            <p>Taxes and shipping not included</p>
+        {
+          cart.length > 0 ?
+          <div className="item-subtotal">
+            <div className="item-subtotal-grid">
+              <h2>SUBTOTAL</h2>
+              <span>${cart.reduce((result,c) => result + (c.price * c.quantity),0)}</span>
+              <p>Taxes and shipping not included</p>
+            </div>
+            <PayButton/>
+          </div>:
+          <div style={{textAlign:'center', width:'100%'}}>
+            How very empty ;(
           </div>
-          <button className="checkout-btn">CHECKOUT <BsFillBagCheckFill size={15} /></button>
-        </div>
+        }
       </div>  
       </>:
       <UserNotFound/>

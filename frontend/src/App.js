@@ -4,23 +4,31 @@ import { Gallery,Sale,Search,Contact,Home, Login, SignUp } from './pages';
 import { BasicLayout, UserLayout } from './layout';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from './redux/userSlicer';
-import { addUserDetail, getUserDetails } from './redux/userDetailSlicer';
+import { getUserDetails } from './redux/userDetailSlicer';
 import axios from 'axios';
 import { path } from './constants';
 import { addProducts } from './redux/productSlice';
 import Loading from './components/Loading';
+import { getCart } from './redux/cartSlice';
+
 function App() { 
+  // React Hooks
   const [result, setResult] = useState('')
   const [loading, setLoading] = useState(true)
+  const {detail} = useSelector(state => state.userDetail)
   const dispatch = useDispatch()
+
+  // useEffect
   useEffect(() => {
     // Checking if user has logged in already and getting the details
     const users = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
     if(users){
       dispatch(getUserDetails(users.token))
       dispatch(addUser(users))
+      // Getting user cart info
+      dispatch(getCart(users.token))
     }
 
     // Getting all products
@@ -31,10 +39,12 @@ function App() {
         setLoading(false)
       }catch(e){
         console.log('something went wrong')
+        setLoading(false)
       }
     }
     getProducts()
   },[])
+
   return (
    <BrowserRouter>
    {

@@ -1531,7 +1531,8 @@ a {
 }
 
 .item-image > img{
-  width: 200px;
+  max-width: 150px;
+  max-height: 150px;
 }
 .item-image-text{
   display: flex;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { AiFillStar } from 'react-icons/ai'
-import { BsFillBookmarkPlusFill, BsFillCartPlusFill } from 'react-icons/bs'
 import { path } from '../constants'
 import Magnifier from 'react-magnifier'
 import Error from '../components/Error'
@@ -10,6 +9,7 @@ import { useSelector } from 'react-redux'
 import UserComment from '../components/UserComment'
 import Loading from '../components/Loading'
 import ProductComment from '../components/ProductComment'
+import ProductButton from '../components/ProductButton'
 
 const Product = () => {
   // React hooks
@@ -43,6 +43,7 @@ const Product = () => {
         setLoading(false)
         setError(true)
       }
+      setLoading(false)
     }
     getProduct()
   },[])
@@ -94,7 +95,7 @@ const Product = () => {
               product.property.storage.length > 0 &&
               product.property.storage[0] > 0 ?
               <ul className='product-storage'>
-              Storage: {product.property.storage.sort().map(s => <li key={s}> {s}GB </li>)}
+              Storage: {product.property.storage.sort((a,b) => a-b).map(s => <li key={s}> {s >= 1000 ? `${parseInt(s / 1000)}TB`: `${s}GB`} </li>)}
               </ul>:
               ''
               } 
@@ -108,12 +109,7 @@ const Product = () => {
                 </ul>
               </div>
               <div className="product-buttons">
-                <button>
-                  <BsFillBookmarkPlusFill /> Save
-                </button>
-                <button>
-                  <BsFillCartPlusFill /> Add to Cart
-                </button>
+                <ProductButton product={product} userId={detail && detail._id}/>
               </div>
             </div>
           </div>

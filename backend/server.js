@@ -7,7 +7,8 @@ import productRoutes from './routes/productRoute.js'
 import categoryRoutes from './routes/categoryRoute.js'
 import userDetailRoutes from './routes/userDetailRoute.js'
 import adminRoutes from './routes/adminRoute.js'
-
+import cartRoutes from './routes/cartRoute.js'
+import stripe from './routes/stripe.js'
 
 // app configuration
 const app = express()
@@ -29,6 +30,8 @@ app.use('/api/v1/userdetail',userDetailRoutes)
 app.use('/api/v1/admin',adminRoutes)
 app.use('/api/v1/product',productRoutes)
 app.use('/api/v1/category',categoryRoutes)
+app.use('/api/v1/stripe',stripe)
+app.use('/api/v1/cart',cartRoutes)
 
 
 // enviroment constant calling
