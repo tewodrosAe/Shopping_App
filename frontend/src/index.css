@@ -2015,6 +2015,33 @@ a {
   letter-spacing: 0.2px;
   font-family: "Roboto";
 }
+.not-there{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.not-found-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgb(196, 196, 196);
+  padding: 50px 30px;
+  text-align: center;
+}
+.not-found-container > h2{
+  font-size: 40px;
+}
+.not-found-container > svg{
+  margin-left: auto;
+  margin-right: auto;
+}
+.not-found-container > a{
+  color: rgb(57, 57, 240);
+}
 /* &:hover {
   box-shadow: 0 0 6px #4285f4;
 }

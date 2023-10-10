@@ -12,6 +12,8 @@ import { path } from './constants';
 import { addProducts } from './redux/productSlice';
 import Loading from './components/Loading';
 import { getCart } from './redux/cartSlice';
+import CheckoutSuccess from './pages/CheckoutSucces';
+import NotFound from './pages/NotFound';
 
 function App() { 
   // React Hooks
@@ -63,7 +65,10 @@ function App() {
         <Route path='/user' element={<UserLayout/>}>
           <Route path='signup' element={<SignUp/>} />
           <Route path='login' element={<Login/>} />
+          <Route path='*' element={<NotFound/>}/>
         </Route>
+        <Route path='/checkout-success' element={<CheckoutSuccess/>}/>
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
    }
    </BrowserRouter>

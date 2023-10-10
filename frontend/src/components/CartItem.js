@@ -1,11 +1,22 @@
 import React from 'react'
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { useDispatch } from 'react-redux'
-import { addQuantity, removeQuantity } from '../redux/cartSlice'
+import { addQuantity, removeCart, removeQuantity } from '../redux/cartSlice'
+import axios from 'axios'
+import { path } from '../constants'
 
 const CartItem = ({cart}) => {
     //React hooks
     const dispatch = useDispatch()
+    //Event handlers
+    const handleDelete = async() => {
+        try{
+            await axios.post(`${path}/cart/remove`, {productId: cart.productId, userId: cart.userId})
+            dispatch(removeCart(cart.productId))
+        }catch(e){
+            console.log(e)
+        }
+    }
     return (
         <>
             <div className="cart-item">
@@ -13,7 +24,7 @@ const CartItem = ({cart}) => {
                     <img src={cart.image} alt="item" />
                     <div className='item-image-text'>
                         <span>{cart.name}</span>
-                        <em >Delete</em>
+                        <em onClick={handleDelete}>Delete</em>
                     </div>
                 </div>
                 <div className="price">

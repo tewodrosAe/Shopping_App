@@ -19,7 +19,8 @@ const userDetailModel = new Schema({
     user_id:{
         type: String,
         required: true,
-    }
+    },
+    favorites: [String]
 },{ timestamps: true })
 
 

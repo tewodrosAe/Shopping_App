@@ -31,7 +31,7 @@ const Cart = () => {
               <span>${cart.reduce((result,c) => result + (c.price * c.quantity),0)}</span>
               <p>Taxes and shipping not included</p>
             </div>
-            <PayButton/>
+            <PayButton cart={cart} userId={detail._id}/>
           </div>:
           <div style={{textAlign:'center', width:'100%'}}>
             How very empty ;(

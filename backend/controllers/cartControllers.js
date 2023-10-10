@@ -24,4 +24,13 @@ const createCart = async(req,res) =>  {
     }
 }
 
-export {createCart, getCart}
+const removeCart = async(req,res) =>  {
+    const {productId, userId} = req.body
+    try{
+        const deleted = await Cart.deleteOne({productId, userId})
+        res.status(200).json({deleted})
+    }catch(e){
+        res.status(400).json({error:e})
+    }
+}
+export {createCart, getCart, removeCart}

@@ -17,6 +17,7 @@ export default function Nav() {
   const [toggleSearch, setToggleSearch] = useState(false)
   const [transparent, setTransparent] = useState(true)
   const { user } = useSelector(state => state.user)
+  const { cart } = useSelector(state => state.cart)
   const location = useLocation()
   const navigate = useNavigate()
   const [hovered, setHovered] = useState()
@@ -102,7 +103,7 @@ export default function Nav() {
               `shopping-counter ${transparent && "shopping-counter-dark "}`
             }
           >
-            0
+            { cart.length }
           </div>
         </Link>
         {
