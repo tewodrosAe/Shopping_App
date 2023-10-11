@@ -15,7 +15,7 @@ export const getCart = createAsyncThunk('get/cart',
             const resp  = await cart.data
             return resp
         }catch(e){
-            console.log('Something went wrong!')
+            console.log(e)
         }
     }
 )
@@ -26,14 +26,16 @@ const cartSlice = createSlice({
     extraReducers:(builder) => {
         builder
         .addCase(getCart.fulfilled, (state, action) => {
-            state.cart = action.payload
+            if(action.payload.length > 0){
+                state.cart = action.payload[0].products
+            }
         })
     },
     reducers:{
         addCart: (state,action) => {
             const filtered = state.cart.filter(c => c.productId === action.payload.productId)
             if(filtered.length <= 0){
-                state.cart = [...state.cart, action.payload]
+                state.cart = [...action.payload]
             }
         },
         removeCart: (state,action) => {

@@ -9,14 +9,13 @@ const ProductButton = ({product,userId}) => {
   //React Hooks
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  
   // Event handlers
   const handleCart = async() => {
     const productDetail = {
       name: product.name,
       image: product.picture[0],
       productId: product._id,
-      userId,
       description: product.description,
       quantity: 1,
       category: product.category,
@@ -24,8 +23,8 @@ const ProductButton = ({product,userId}) => {
     }
 
     try{
-      const newCart = await axios.post(`${path}/cart/create`,{productDetail})
-      dispatch(addCart(newCart.data))
+      const newCart = await axios.post(`${path}/cart/create`,{productDetail, userId})
+      dispatch(addCart(newCart.data.products))
       navigate('/cart')
     }catch(e){
       console.log('Something went Wrong!')
