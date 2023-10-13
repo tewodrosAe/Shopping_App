@@ -83,14 +83,7 @@ const Login = () => {
           <button>
             Login
           </button>
-          <div className="google-auth">
-            <div className="google-btn">
-              <div className="google-icon-wrapper">
-                <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt='google'/>
-              </div>
-              <p className="btn-text"><b>Sign in with google</b></p>
-            </div>
-          </div>
+        
           <div className="signup-option">
             <p>Not a member yet?</p>
             <div onClick={() => {

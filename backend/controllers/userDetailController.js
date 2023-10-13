@@ -1,4 +1,5 @@
 import UserDetail from '../models/userDetailModel.js'
+import Product from '../models/productModels.js'
 
 const getUserDetails = async(req,res) =>{
     const user = req.user
@@ -19,4 +20,33 @@ const createUserDetails = async(req,res) =>{
         res.status(400).json({error:e})
     }
 }
-export {getUserDetails, createUserDetails}
+
+const addFavorite = async(req,res) =>{
+    const {userId, favorite} = req.body
+    const exists = await UserDetail.exists({_id: userId, favorites: favorite})
+    if(exists){
+        return res.status(400).json({error: 'Product Already saved!'})
+    }
+    try{
+        const userDetails = await UserDetail.findByIdAndUpdate(userId, 
+                {'$push': {favorites: favorite, favoritesAdded:{[favorite]: favorite}}},
+                {'new': true, 'upsert': true}
+            )
+        res.status(200).json(userDetails)
+    }catch(e){
+        res.status(400).json({error:e})
+    }
+}
+
+const removeFavorite = async(req,res) =>{
+    const {userId, favorites} = req.body
+    try{
+        const userDetails = await UserDetail.findByIdAndUpdate(userId,
+            {favoritesAdded: favorites.map(fav => ({[fav]: fav})), favorites}
+            )
+        res.status(200).json(userDetails)
+    }catch(e){
+        res.status(400).json({error:e})
+    }
+}
+export {getUserDetails, createUserDetails, addFavorite, removeFavorite}

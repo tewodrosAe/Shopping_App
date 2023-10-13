@@ -12,7 +12,7 @@ const orderSchema = Schema({
         required: true
     },
     products: [
-        { productId: { type: String }, quantity: { type: Number, default: 1 } },
+        { productId: { type: Schema.Types.ObjectId, ref: 'products' }, quantity: { type: Number, default: 1 } },
       ],
     subtotal: { type: Number, required: true },
     total: { type: Number, required: true },

@@ -2,6 +2,8 @@ import express from 'express'
 import Stripe from 'stripe'
 import dotenv from 'dotenv'
 import Order from '../models/orderModel.js'
+import Cart from '../models/cartModel.js'
+import UserDetail from '../models/userDetailModel.js'
 
 dotenv.config()
 const route = express.Router()
@@ -80,14 +82,21 @@ route.post('/create-checkout-session', async (req, res) => {
         delivery_status: data.delivery_status,
       }
       const newOrder = await Order.create(datas)
-      console.log(newOrder)
+      await UserDetail.findOneAndUpdate({_id: datas.userId},
+        {'$push': {purchases:newOrder._id}}
+        )
+      await Cart.deleteOne({userId: datas.userId})
     }catch(e){
       console.log({error: e})
     }
     
   };
+  
   //Stripe Webhook
-
+/* const cart = await Cart.findOneAndUpdate({userId},
+                {'$push':{products:productDetail}},
+                {'new':true, 'upsert': true }
+            ) */
   route.post(
     "/webhook",
     express.json({ type: "application/json" }),

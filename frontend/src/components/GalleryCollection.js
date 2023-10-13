@@ -6,8 +6,7 @@ import { useState } from "react"
 function GalleryCollection({title,result, products}) {
     const [filtered, setFiltered] = useState('All Products')
     const [filteredTwo, setFilteredTwo] = useState('All Products')
-    console.log(products[0].category.split('-').slice(-1)[0])
-    console.log(filteredTwo)
+
     return (
             <div className="gallery">
                 <div className="gallery-container">

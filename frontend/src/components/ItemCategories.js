@@ -50,7 +50,7 @@ function ItemCategories({ setFilteredTwo, setFiltered }) {
             </div>
             <ul>
               {
-                filtersTwo.map(filter => <li onClick={itemDropdown}>{filter}</li>)
+                filtersTwo.map(filter => <li key={filter} onClick={itemDropdown}>{filter}</li>)
               }
             </ul>
       </div>

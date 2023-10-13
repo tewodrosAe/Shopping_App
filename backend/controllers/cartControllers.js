@@ -41,7 +41,7 @@ const createCart = async(req,res) =>  {
 const removeCart = async(req,res) =>  {
     const {productId, userId} = req.body
     try{
-        const deleted = await Cart.deleteOne({productId, userId})
+        const deleted = await Cart.deleteOne({'userId':userId, 'products.productId': productId})
         res.status(200).json({deleted})
     }catch(e){
         res.status(400).json({error:e})
@@ -57,4 +57,4 @@ const eraseCart = async(req,res) =>  {
         res.status(400).json({error:e})
     }
 }
-export {createCart, getCart, removeCart}
+export {createCart, getCart, removeCart, eraseCart}

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AiOutlineInfoCircle, AiOutlineLogout } from 'react-icons/ai'
+import { useNavigate } from 'react-router-dom'
 
 
 const UserDetail = ({classname}) => {
     // React hooks
     const {detail} = useSelector(state => state.userDetail)
     const [clicked,setClicked] = useState(false)
+    const navigate = useNavigate()
     const menu = useRef()
 
     // Event functions
@@ -42,7 +44,7 @@ const UserDetail = ({classname}) => {
         <div ref={menu} className="user-dropdown">
             <h5>{detail?.username}</h5>
             <ul>
-                <li>More Info <AiOutlineInfoCircle size={18}/></li>
+                <li onClick={() => navigate('/detail')}>More Info <AiOutlineInfoCircle size={18}/></li>
                 <div className="break" id='user-break'></div>
                 <li onClick={logout}>Logout <AiOutlineLogout size={18}/></li>
                 <div className="break" id='user-break'></div>

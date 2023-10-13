@@ -21,13 +21,16 @@ const Product = () => {
   const [loading, setLoading] = useState(false)
   const [bigImage, setBigImage] = useState(0)
   const navigate = useNavigate()
-
+  const [storage, setStorage] = useState()
+  console.log(storage)
   // Event handlers
   const handleToggle = (e) => {
     const toggleName = e.target.id
     setToggleDesc(toggleName)
   }
- 
+  const handleStorage = (e) => {
+    setStorage(e.target.innerText.split('GB')[0])
+  }
 
   // useEffect
   useEffect(() => {
@@ -37,6 +40,7 @@ const Product = () => {
         const resp = await axios.get(`${path}/product/${productId}`)
         setProduct(resp.data)
         setBigImage(resp.data.picture[0])
+        setStorage(resp.data.property.storage[0])
         setLoading(false)
       } catch (e) {
         console.log('Something went wrong!')
@@ -95,7 +99,7 @@ const Product = () => {
               product.property.storage.length > 0 &&
               product.property.storage[0] > 0 ?
               <ul className='product-storage'>
-              Storage: {product.property.storage.sort((a,b) => a-b).map(s => <li key={s}> {s >= 1000 ? `${parseInt(s / 1000)}TB`: `${s}GB`} </li>)}
+              Storage: {product.property.storage.sort((a,b) => a-b).map(s => <li key={s} onClick={handleStorage}> {s >= 1000 ? `${parseInt(s / 1000)}TB`: `${s}GB`} </li>)}
               </ul>:
               ''
               } 
@@ -109,7 +113,7 @@ const Product = () => {
                 </ul>
               </div>
               <div className="product-buttons">
-                <ProductButton product={product} userId={detail && detail._id}/>
+                <ProductButton product={product} userId={detail && detail._id} userDetail={detail}/>
               </div>
             </div>
           </div>

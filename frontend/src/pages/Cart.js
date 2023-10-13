@@ -1,8 +1,7 @@
 import CartItem from "../components/CartItem"
 import PayButton from "../components/PayButton"
 import UserNotFound from "../components/UserNotFound"
-import { cartTitles, footerTwo } from "../constants"
-import {BsFillBagCheckFill} from 'react-icons/bs'
+import { cartTitles } from "../constants"
 import { useSelector } from 'react-redux'
 
 const Cart = () => {
@@ -21,7 +20,7 @@ const Cart = () => {
         </ul>
         <div className='break cart-breakline'/>
         <div className="cart-items">
-          {cart.map((c) => <CartItem key={c._id} cart={c}/>) }
+          {cart.map((c) => <CartItem key={c._id} cart={c} userId={detail._id}/>) }
         </div>
         {
           cart.length > 0 ?

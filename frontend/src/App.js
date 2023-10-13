@@ -14,6 +14,8 @@ import Loading from './components/Loading';
 import { getCart } from './redux/cartSlice';
 import CheckoutSuccess from './pages/CheckoutSucces';
 import NotFound from './pages/NotFound';
+import UserDetail from './components/UserDetail';
+import UserInfo from './pages/UserInfo';
 
 function App() { 
   // React Hooks
@@ -27,10 +29,10 @@ function App() {
     // Checking if user has logged in already and getting the details
     const users = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
     if(users){
-      dispatch(getUserDetails(users.token))
+      dispatch(getUserDetails(users))
       dispatch(addUser(users))
       // Getting user cart info
-      dispatch(getCart(users.token))
+      dispatch(getCart(users))
     }
 
     // Getting all products
@@ -57,6 +59,7 @@ function App() {
           <Route path='/'   element={<Home />}/>
           <Route path='gallery' element={<Gallery/>} />
           <Route path='contact' element={<Contact/>}/>
+          <Route path='detail' element={<UserInfo/>}/>
           <Route path='sale' element={<Sale/>}/>
           <Route path='product/:productId' element={<Product/>}/>
           <Route path='search' element={<Search result={result}/>}/>

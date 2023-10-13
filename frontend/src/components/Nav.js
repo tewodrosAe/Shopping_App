@@ -96,7 +96,7 @@ export default function Nav() {
         <div onClick={onToggleClick} className='menu'>
           <img alt="toggle" src={!transparent ? '/menu.svg' : '/menu_transparent.svg'} />
         </div>
-        <Link to={'/cart'} className={`cart-pointer ${!transparent && 'black-text'}`}>
+        <Link to={'/cart'}  className={`cart-pointer ${!transparent && 'black-text'}`}>
           <ImCart className={`car ${transparent && "white-text"}`} />
           <div
             className={

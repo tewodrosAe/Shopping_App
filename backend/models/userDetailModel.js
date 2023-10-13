@@ -15,12 +15,20 @@ const userDetailModel = new Schema({
         type: String,
         default:'https://t4.ftcdn.net/jpg/00/97/00/09/360_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg'
     },
-    purchases:[purchase],
+    purchases:[{
+        type: Schema.Types.ObjectId,
+        ref: 'orders'
+    }],
     user_id:{
         type: String,
         required: true,
     },
-    favorites: [String]
+    favorites: [{
+        type: Schema.Types.ObjectId,
+        ref: 'products',
+        unique: true
+    }],
+    favoritesAdded: [Object]
 },{ timestamps: true })
 
 

@@ -1,15 +1,19 @@
 import { BsFillBookmarkPlusFill, BsFillCartPlusFill } from "react-icons/bs"
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md"
 import { useDispatch } from "react-redux"
 import { addCart } from "../redux/cartSlice"
 import { useNavigate } from "react-router-dom"
 import { path } from "../constants"
 import axios from "axios"
+import { useEffect, useState } from "react"
 
-const ProductButton = ({product,userId}) => {
+const ProductButton = ({product,userId,userDetail}) => {
   //React Hooks
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+  const [saved, setSaved] = useState(false)
+  const [loading, setLoading] = useState(false)
+
   // Event handlers
   const handleCart = async() => {
     const productDetail = {
@@ -31,11 +35,44 @@ const ProductButton = ({product,userId}) => {
       navigate('/cart')
     }
   }
+  const handleSave = async() => {
+    setLoading(true)
+    try{
+      if(saved){
+        const unsave = await axios.post(`${path}/userdetail/unfavorite`,{favorites:userDetail.favorites.filter(fav => fav !== product._id), userId})
+        setSaved(false)
+      }else{
+        const save = await axios.post(`${path}/userdetail/favorite`,{favorite:product._id, userId})
+        setSaved(true)
+      }
+    }catch(e){
+      console.log(e)
+    }
+    setLoading(false)
+  }
+
+  // useEffect
+  useEffect(() => {
+    setSaved(false)
+   const array =  userDetail?.favoritesAdded.filter(fav =>  fav[product?._id] === product?._id)
+   if(array && array.length > 0){
+    setSaved(true)
+   }
+  },[userDetail, product])
 
   return (
     <>
-        <button>
-            <BsFillBookmarkPlusFill /> Save
+        <button onClick={handleSave}  style={{background: `${saved ? 'white' : 'black'}`,color: `${!saved ? 'white' : 'black'}`, border:'1px solid black', display:'flex',alignItems:'center', gap: 4, transition: '0.2s'}}>
+          { !loading ?
+            (!saved ?
+            <>
+              <MdFavoriteBorder size={14}/> Save
+            </>:
+            <>
+              <MdFavorite size={14}/> Saved
+            </>):
+            <div>Loading...</div>
+          }
         </button>
         <button onClick={handleCart}>
             <BsFillCartPlusFill /> Add to Cart

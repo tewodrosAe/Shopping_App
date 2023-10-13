@@ -5,13 +5,14 @@ import { addQuantity, removeCart, removeQuantity } from '../redux/cartSlice'
 import axios from 'axios'
 import { path } from '../constants'
 
-const CartItem = ({cart}) => {
+const CartItem = ({cart,userId}) => {
     //React hooks
     const dispatch = useDispatch()
+
     //Event handlers
     const handleDelete = async() => {
         try{
-            await axios.post(`${path}/cart/remove`, {productId: cart.productId, userId: cart.userId})
+            await axios.post(`${path}/cart/remove`, {productId: cart.productId, userId})
             dispatch(removeCart(cart.productId))
         }catch(e){
             console.log(e)
