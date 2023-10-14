@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom"
 import { path } from "../constants"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { addFav, removeFav } from "../redux/userDetailSlicer"
 
-const ProductButton = ({product,userId,userDetail}) => {
+const ProductButton = ({product,userId,userDetail, color, storage}) => {
   //React Hooks
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -23,7 +24,9 @@ const ProductButton = ({product,userId,userDetail}) => {
       description: product.description,
       quantity: 1,
       category: product.category,
-      price: product.price
+      price: product.price,
+      color,
+      storage
     }
 
     try{
@@ -35,14 +38,18 @@ const ProductButton = ({product,userId,userDetail}) => {
       navigate('/cart')
     }
   }
+
   const handleSave = async() => {
     setLoading(true)
     try{
       if(saved){
-        const unsave = await axios.post(`${path}/userdetail/unfavorite`,{favorites:userDetail.favorites.filter(fav => fav !== product._id), userId})
+        const newFav = userDetail.favoritesAdded.filter(fav => !fav[product._id] || fav[product._id].length <= 0)
+        await axios.post(`${path}/userdetail/unfavorite`,{favorites:newFav, userId})
+        dispatch(removeFav({id: product._id, newFav}))
         setSaved(false)
       }else{
-        const save = await axios.post(`${path}/userdetail/favorite`,{favorite:product._id, userId})
+        await axios.post(`${path}/userdetail/favorite`,{favorite:product._id, userId})
+        dispatch(addFav({_id: product._id, name: product.name, picture: product.picture}))
         setSaved(true)
       }
     }catch(e){
@@ -55,6 +62,7 @@ const ProductButton = ({product,userId,userDetail}) => {
   useEffect(() => {
     setSaved(false)
    const array =  userDetail?.favoritesAdded.filter(fav =>  fav[product?._id] === product?._id)
+    console.log(array)
    if(array && array.length > 0){
     setSaved(true)
    }

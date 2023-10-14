@@ -11,7 +11,7 @@ const requireAuth = async (req,res,next) =>{
 
     try{
         const {id: user_id} = jwt.verify(token,process.env.SECRET)
-        req.user = await UserDetail.findOne({user_id}).populate('purchases')
+        req.user = await UserDetail.findOne({user_id}).populate('purchases favorites')
         next()
     }catch(e){
         res.status(401).json({error:'authorization denied'})

@@ -35,6 +35,8 @@ const cartSchema = mongoose.Schema({
             type: Number, 
             required: true
         },
+        color: String,
+        storage: Number
     }]
 },{timestamps: true})
 

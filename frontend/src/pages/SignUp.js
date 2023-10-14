@@ -28,7 +28,7 @@ const Signup = () => {
     .then(result => {
       if(!result.error && result.payload){
         const { user, token } = result.payload
-        const userdetail = {user_id:user._id,username:user.username}
+        const userdetail = {user_id:user._id,username:user.username, email: user.email}
         dispatch(createUserDetails(userdetail))
         .then( res => {
           const {username,profile} = res.payload

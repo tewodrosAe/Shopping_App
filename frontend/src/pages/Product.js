@@ -22,7 +22,8 @@ const Product = () => {
   const [bigImage, setBigImage] = useState(0)
   const navigate = useNavigate()
   const [storage, setStorage] = useState()
-  console.log(storage)
+  const [colors, setColors] = useState()
+  
   // Event handlers
   const handleToggle = (e) => {
     const toggleName = e.target.id
@@ -31,7 +32,9 @@ const Product = () => {
   const handleStorage = (e) => {
     setStorage(e.target.innerText.split('GB')[0])
   }
-
+  const handleColor = (color) => {
+    setColors(color)
+  }
   // useEffect
   useEffect(() => {
     async function getProduct() {
@@ -40,7 +43,8 @@ const Product = () => {
         const resp = await axios.get(`${path}/product/${productId}`)
         setProduct(resp.data)
         setBigImage(resp.data.picture[0])
-        setStorage(resp.data.property.storage[0])
+        setStorage(String(resp.data.property.storage[0]))
+        setColors(resp.data.property.color[0])
         setLoading(false)
       } catch (e) {
         console.log('Something went wrong!')
@@ -99,7 +103,7 @@ const Product = () => {
               product.property.storage.length > 0 &&
               product.property.storage[0] > 0 ?
               <ul className='product-storage'>
-              Storage: {product.property.storage.sort((a,b) => a-b).map(s => <li key={s} onClick={handleStorage}> {s >= 1000 ? `${parseInt(s / 1000)}TB`: `${s}GB`} </li>)}
+              Storage: {product.property.storage.sort((a,b) => a-b).map(s => <li key={s} onClick={handleStorage} className={`${storage === String(s) ? 'storage-clicked':''}`}> {s >= 1000 ? `${parseInt(s / 1000)}TB`: `${s}GB`} </li>)}
               </ul>:
               ''
               } 
@@ -108,12 +112,12 @@ const Product = () => {
                 <h3>Color</h3>
                 <ul>
                   {product && product.property.color.map((color) => (
-                    <li style={{ backgroundColor: color }} key={color}/>
+                    <li style={{ backgroundColor: color }} key={color} id={`${color === colors ? 'color-clicked': ''}`} onClick={() => handleColor(color)}/>
                   ))}
                 </ul>
               </div>
               <div className="product-buttons">
-                <ProductButton product={product} userId={detail && detail._id} userDetail={detail}/>
+                <ProductButton product={product} userId={detail && detail._id} userDetail={detail} color={colors} storage={parseInt(storage)}/>
               </div>
             </div>
           </div>

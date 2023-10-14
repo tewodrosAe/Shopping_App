@@ -37,7 +37,15 @@ const userDetailSlicer = createSlice({
     reducers: {
         addUserDetail: (state,action) => {
             state.detail = action.payload
-        } 
+        } ,
+        addFav: (state, action) => {
+            state.detail.favorites = [...state.detail.favorites, action.payload]
+            state.detail.favoritesAdded = [...state.detail.favoritesAdded, {[action.payload._id]:action.payload._id}]
+        },
+        removeFav: (state, action) => {
+            state.detail.favorites = state.detail.favorites.filter(fav => fav._id !== action.payload.id)
+            state.detail.favoritesAdded = action.payload.newFav
+        }
     }
     ,
     extraReducers: (builder) => {
@@ -61,6 +69,6 @@ const userDetailSlicer = createSlice({
     }
 })
 
-export const {addUserDetail } = userDetailSlicer.actions
+export const {addUserDetail, addFav, removeFav } = userDetailSlicer.actions
 
 export default userDetailSlicer.reducer

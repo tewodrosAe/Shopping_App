@@ -22,7 +22,7 @@ function BestSellers({products}) {
       >
         {
           products.map(product => (
-            <SwiperSlide>
+            <SwiperSlide key={product._id}>
               <ProductCard product={product} slide={true} />
             </SwiperSlide>
           ))

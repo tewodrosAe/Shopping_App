@@ -12,9 +12,9 @@ const getUserDetails = async(req,res) =>{
 }
 
 const createUserDetails = async(req,res) =>{
-    const {user_id, username} = req.body
+    const {user_id, username, email} = req.body
     try{
-        const userDetails = await UserDetail.create({user_id,username})
+        const userDetails = await UserDetail.create({user_id,username, email})
         res.status(200).json(userDetails)
     }catch(e){
         res.status(400).json({error:e})
@@ -40,9 +40,10 @@ const addFavorite = async(req,res) =>{
 
 const removeFavorite = async(req,res) =>{
     const {userId, favorites} = req.body
+    const favoritesId = favorites.map(fav => Object.keys(fav)[0])
     try{
         const userDetails = await UserDetail.findByIdAndUpdate(userId,
-            {favoritesAdded: favorites.map(fav => ({[fav]: fav})), favorites}
+            {favoritesAdded: favoritesId.map(fav => ({[fav]: fav})), favorites:favoritesId}
             )
         res.status(200).json(userDetails)
     }catch(e){

@@ -1,8 +1,18 @@
 import { Button, Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const DetailCatalog = ({title}) => {
+const DetailCatalog = ({title, data}) => {
+    // React Hooks
+    const navigate = useNavigate()
+    // Declared constants
     const hasQuantity = title === 'Purchases'
+    // Event listeners
+    const handleRedirect = (path) => {
+        if(!hasQuantity){
+            navigate(`/product/${path}`)
+        }
+    }
     return (
         <Container
             sx={{
@@ -25,31 +35,43 @@ const DetailCatalog = ({title}) => {
             <TableContainer >
             <Table aria-label="simple table">
                 <TableHead>
-                <TableRow>
+                <TableRow
+                    
+                >
                     <TableCell>Picture</TableCell>
-                    <TableCell align="right">Name</TableCell>
+                    <TableCell align="right" sx={{width:15, paddingLeft:33, paddingRight:6}}>Name</TableCell>
                     {
                         hasQuantity ?
-                        <TableCell align="right">Quantity</TableCell>:
+                        <TableCell align="right" sx={{paddingRight: 10}}>Quantity</TableCell>:
                         <TableCell align="right"></TableCell>
                     }
                     
                 </TableRow>
                 </TableHead>
                 <TableBody>
-                <TableRow>
-                    <TableCell>
-                        <img src="https://res.cloudinary.com/dkks3bhwk/image/upload/v1696495482/Tech_shops/product49.76202517703698.png" alt="" style={{maxHeight:80}}/>
-                    </TableCell>
-                    <TableCell align='right'>
-                        Iphone 14
-                    </TableCell>
-                    <TableCell align='right'>
-                    <Button variant="contained" sx={{bgcolor:'#08222b'}} disableElevation>
-                        Go to Product
-                    </Button>
-                    </TableCell>
-                </TableRow>
+                {
+                    data &&
+                    data.map(d => 
+                        <TableRow sx={{cursor: 'pointer'}} onClick={() =>  handleRedirect(d._id)} key={d._id}>
+                            <TableCell>
+                                <img src={`${!hasQuantity ? d?.picture[0] : d?.products[0].image}`} alt="" style={{maxHeight:80}}/>
+                            </TableCell>
+                            <TableCell align='right' >
+                                {!hasQuantity ? d.name : <>{d.products[0].name }  {d.products.length > 1 && `and ${d.products.length - 1} More...`}</>}
+                            </TableCell>
+                            <TableCell align='right' >
+                                {
+                                    hasQuantity ?
+                                    <div style={{paddingLeft: 45, textAlign:'right', paddingRight: 85}}>{d.products[0].quantity}</div>:
+                                    <Button variant="contained" sx={{bgcolor:'#08222b'}} disableElevation>
+                                        Go to Product
+                                    </Button>
+                                }
+                            </TableCell>
+                        </TableRow>
+                    )   
+                }
+               
                 </TableBody>
             </Table>
             </TableContainer>

@@ -13,7 +13,7 @@ route.post('/create-checkout-session', async (req, res) => {
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userId,
-      cart: JSON.stringify(req.body.cart.map(c => ({productId:c._id,quantity:c.quantity}))),
+      cart: JSON.stringify(req.body.cart.map(c => ({productId:c._id,quantity:c.quantity, color: c.color, storage: c.storage, name: c.name, image: c.image})))
     },
   });
   const line_items = req.body.cart.map(c => {
