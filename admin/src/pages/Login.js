@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addAdmins, addUser } from '../redux/adminSlice';
 import { getCategory } from '../redux/categorySlice';
 import { getProducts } from '../redux/productSlice';
+import { addOrders } from '../redux/ordersSlice';
 
 const Login = () => {
     //React hooks
@@ -37,6 +38,10 @@ const Login = () => {
             // Get Products
             const product = await axios.get(`${process.env.REACT_APP_PATH}/product/`)
             dispatch(getProducts(product.data))
+
+            //  Get Orders
+            const orders = await axios.post(`${process.env.REACT_APP_PATH}/orders/`, {token: data.token})
+            dispatch(addOrders(orders.data))
 
             // Save to local storage and navigate to home
             localStorage.setItem('user', JSON.stringify(data))

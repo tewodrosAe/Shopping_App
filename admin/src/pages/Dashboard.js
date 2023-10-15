@@ -1,17 +1,22 @@
 import { useSelector } from "react-redux"
+import {useState} from 'react'
 import Card from "../components/Card"
+import { dateAnalyzer } from "../utils"
 
 const Dashboard = () => {
+  // React Hooks
   const {user} = useSelector(state => state.user)
-  const data1 = {
-    day: 2,
-    week: 25,
-    month: 32
+  const {orders} = useSelector(state => state.order)
+  const [dates, setDates] = useState(dateAnalyzer())
+  
+  // Constant declaration
+  const data = {
+    today : orders.filter(order => order.createdAt <= dates.today),
+    week : orders.filter(order => order.createdAt <= dates.week),
+    month : orders.filter(order => order.createdAt <= dates.month)
   }
-  const data2 = {
-    day: '$ 850',
-    week: '$ 2,500',
-    month: '$ 31,000'
+  const add = (total, num) => {
+    return total + (num.total / 100)
   }
 
   return (
@@ -26,8 +31,8 @@ const Dashboard = () => {
               {user.username ?? user.name}
             </div>
           </div>
-          <Card title='Orders' data={data1}/>
-          <Card title='Revenue' data={data2}/>
+          <Card title='Orders' data={[data.today.length, data.week.length, data.month.length]} today={data.today.length} week={data.week.length} month={data.month.length}/>
+          <Card title='Revenue' data={[data.today.length, data.week.length, data.month.length]} today={data.today.reduce(add,0).toLocaleString("en-US")} week={data.week.reduce(add,0).toLocaleString("en-US")} month={data.month.reduce(add,0).toLocaleString("en-US")}/>
         </div>
       }
     </>

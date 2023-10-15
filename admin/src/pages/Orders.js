@@ -1,6 +1,10 @@
+import {useSelector} from 'react-redux'
 import OrdersList from '../components/OrdersList'
 
 const Orders = () => {
+  // React Hooks
+  const {orders} = useSelector(state => state.order)
+
   return (
     <div className='font-semibold'>
       Orders
@@ -20,10 +24,10 @@ const Orders = () => {
             </tr>
           </tbody>
           <tfoot>
-            <OrdersList/>
-            <OrdersList/>
-            <OrdersList/>
-            <OrdersList/>
+            {
+              orders &&
+              orders.map(order => <OrdersList key={order._id} order={order}/>)
+            }
           </tfoot>
         </table>
       </div>

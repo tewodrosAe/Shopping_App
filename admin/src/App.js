@@ -8,6 +8,7 @@ import { BasicLayout } from './layout/BaseLayout'
 import axios from 'axios'
 import { getCategory } from './redux/categorySlice'
 import { getProducts } from './redux/productSlice'
+import { addOrders } from './redux/ordersSlice'
 
 
 const App = () => {
@@ -37,6 +38,10 @@ const App = () => {
           const product = await axios.get(`${process.env.REACT_APP_PATH}/product/`)
           dispatch(getProducts(product.data))
           
+          // Get Orders
+          const orders = await axios.post(`${process.env.REACT_APP_PATH}/orders/`, {token: JSON.parse(current).token})
+          dispatch(addOrders(orders.data))
+
           setLoading(false)
         }catch(e){
           console.log('Something went wrong')

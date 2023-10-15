@@ -12,7 +12,6 @@ export const createUserDetails = createAsyncThunk('/userdetail',
 
 export const getUserDetails = createAsyncThunk('get/userdetail',
     async(token,{rejectWithValue}) => {
-
         const config = {
             headers: { Authorization: `Bearer ${token}` }
         }

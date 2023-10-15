@@ -8,6 +8,7 @@ import categoryRoutes from './routes/categoryRoute.js'
 import userDetailRoutes from './routes/userDetailRoute.js'
 import adminRoutes from './routes/adminRoute.js'
 import cartRoutes from './routes/cartRoute.js'
+import orderRoutes from './routes/orderRoute.js'
 import stripe from './routes/stripe.js'
 
 // app configuration
@@ -32,7 +33,7 @@ app.use('/api/v1/product',productRoutes)
 app.use('/api/v1/category',categoryRoutes)
 app.use('/api/v1/stripe',stripe)
 app.use('/api/v1/cart',cartRoutes)
-
+app.use('/api/v1/orders',orderRoutes)
 
 // enviroment constant calling
 const PORT = process.env.PORT

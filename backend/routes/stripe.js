@@ -12,8 +12,8 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY)
 route.post('/create-checkout-session', async (req, res) => {
   const customer = await stripe.customers.create({
     metadata: {
-      userId: req.body.userId,
-      cart: JSON.stringify(req.body.cart.map(c => ({productId:c._id,quantity:c.quantity, color: c.color, storage: c.storage, name: c.name, image: c.image})))
+      userId: req.body.userId.toString(),
+      cart: JSON.stringify(req.body.cart.map(c => ({productId:c._productId,quantity:c.quantity, color: c.color, storage: c.storage, name: c.name, image: c.image})))
     },
   });
   const line_items = req.body.cart.map(c => {
@@ -70,6 +70,7 @@ route.post('/create-checkout-session', async (req, res) => {
   //Create order fun
   const createOrder = async (customer, data) => {
     const Items = JSON.parse(customer.metadata.cart);
+    console.log(Items)
     try{
       const datas = {
         userId:customer.metadata.userId,
