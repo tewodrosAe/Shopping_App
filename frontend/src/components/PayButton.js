@@ -3,6 +3,7 @@ import axios from 'axios'
 import {path} from '../constants'
 
 const PayButton = ({cart,userId}) => {
+  console.log(cart)
   // Eventhandlers
   const handleClick = () => {
     axios.post(`${path}/stripe/create-checkout-session`,{

@@ -14,7 +14,6 @@ const UserDetail = ({classname}) => {
     // Event functions
     const logout = () =>{
         localStorage.removeItem('user')
-        localStorage.removeItem('userdetail')
         window.location.reload()
     }
 

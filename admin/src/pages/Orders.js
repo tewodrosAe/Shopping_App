@@ -4,7 +4,6 @@ import OrdersList from '../components/OrdersList'
 const Orders = () => {
   // React Hooks
   const {orders} = useSelector(state => state.order)
-
   return (
     <div className='font-semibold'>
       Orders
