@@ -28,6 +28,7 @@ const Login = () => {
     .then((result) => {
       if(!result.error && result.payload){
         setUserDetail(initialState)
+        console.log(result.payload)
         dispatch(getUserDetails(result.payload))
         localStorage.setItem('user',JSON.stringify(result.payload))
         navigate('/')
