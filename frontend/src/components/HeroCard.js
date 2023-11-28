@@ -4,6 +4,7 @@ import { BsFillBagPlusFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 
 function HeroCard({product}) {
+    console.log(product)
     // React hooks
     const navigate = useNavigate()
     return (
@@ -12,10 +13,7 @@ function HeroCard({product}) {
                 <img src={product.picture[0]} alt="product" />
             </div>
             <div className='hero-card-words'>
-                <div className='hero-card-ind'>
-                    <AiFillStar color='yellow'/>
-                    <h6>(11.6k Reviews)</h6>
-                </div>
+               
                 <div className='hero-card-ind'>
                     <h3>{product?.name}</h3>
                 </div>
