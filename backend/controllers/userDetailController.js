@@ -13,10 +13,12 @@ const getUserDetails = async(req,res) =>{
 
 const createUserDetails = async(req,res) =>{
     const {user_id, username, email} = req.body
+
     try{
         const userDetails = await UserDetail.create({user_id,username, email})
         res.status(200).json(userDetails)
     }catch(e){
+        console.log(e)
         res.status(400).json({error:e})
     }
 }

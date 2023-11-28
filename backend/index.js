@@ -23,9 +23,7 @@ app.use(
     limit: '50mb',
   }),
 );
-app.use(cors({
-  origin: ['']
-}))
+app.use(cors())
 
 // routes
 app.use('/api/v1/auth',userRoutes)
