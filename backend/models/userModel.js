@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import validator from "validator"; 
 
 const Schema = mongoose.Schema
@@ -38,8 +38,8 @@ userSchema.statics.signup = async function({email, username, password, confirmpa
     if(userExists){
         throw Error('User already exists')
     }
-    const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(password,salt)
+    const salt = bcrypt.genSaltSync(10)
+    const hash = bcrypt.hashSync(password,salt)
     const user = await this.create({email, username, password:hash})
 
     return user
@@ -55,7 +55,7 @@ userSchema.statics.login = async function({email,password}) {
         throw Error('Sorry but user doesn\'t exist')
     }
 
-    const check = await bcrypt.compare(password, user.password)
+    const check =  bcrypt.compareSync(password, user.password)
 
     if(!check){
         throw Error('Incorrect Email or Password')
