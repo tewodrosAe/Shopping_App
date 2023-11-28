@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 
 const requireAuth = async (req,res,next) =>{
     const { authorization } = req.headers
+    console.log(authorization)
     if(!authorization){
         return res.status(401).json({'error':'Access Denied'})
     }
@@ -15,7 +16,7 @@ const requireAuth = async (req,res,next) =>{
         next()
     }catch(e){
         console.log(e)
-        res.status(401).json({error:'authorization denied'})
+        res.status(401).json({'error':'authorization denied'})
     }
 }
 
