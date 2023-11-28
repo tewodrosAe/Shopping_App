@@ -9,12 +9,9 @@ const requireAuth = async (req,res,next) =>{
     }
 
     const token = authorization.split(' ')[1]
-    console.log(token)
     try{
         const {id: user_id} = jwt.verify(token,process.env.SECRET)
-        console.log(user_id)
         req.user = await UserDetail.findOne({user_id}).populate('purchases favorites')
-        console.log(req.user)
         next()
     }catch(e){
         console.log(e)
