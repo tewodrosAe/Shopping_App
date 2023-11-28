@@ -13,10 +13,8 @@ const getUserDetails = async(req,res) =>{
 
 const createUserDetails = async(req,res) =>{
     const {user_id, username, email} = req.body
-    console.log(user_id, username, email)
     try{
         const userDetails = await UserDetail.create({user_id,username, email})
-        console.log(userDetails)
         res.status(200).json(userDetails)
     }catch(e){
         console.log(e)
