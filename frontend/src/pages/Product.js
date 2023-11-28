@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { AiFillStar } from 'react-icons/ai'
 import { path } from '../constants'
-import Magnifier from 'react-magnifier'
+
 import Error from '../components/Error'
 import { useSelector } from 'react-redux'
 import UserComment from '../components/UserComment'
@@ -72,7 +72,7 @@ const Product = () => {
                 }
               </div>
               <div className='big-image' >
-                <Magnifier src={`${bigImage}`} sizes= "(max-width: 40px) 10vw, (max-width: 1200px) 30vw, 360px" zoomFactor={1}/>
+                {/* <Magnifier src={`${bigImage}`} sizes= "(max-width: 40px) 10vw, (max-width: 1200px) 30vw, 360px" zoomFactor={1}/> */}
               </div>
 
             </div>

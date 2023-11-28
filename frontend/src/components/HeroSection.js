@@ -33,7 +33,7 @@ function HeroSection({products}) {
                     while
                   />
               </div>
-              <button onClick={() => navigate('/product/1')}>Buy Now</button>
+              <button onClick={() => navigate(`/product/${products[0]._id}`)}>Buy Now</button>
           </div>
           <div className='hero-section-item'>
             <div className='rect'>
