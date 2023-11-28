@@ -48,4 +48,4 @@ export const filtersTwo = [
     'Others',
 ]
 
-export const path = 'http://localhost:5000/api/v1' 
+export const path = 'https://shopping-app-backend-phi.vercel.app/api/v1' 
