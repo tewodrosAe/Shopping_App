@@ -30,8 +30,6 @@ const userDetailModel = new Schema({
     favorites: [{
         type: Schema.Types.ObjectId,
         ref: 'products',
-        unique: true,
-        
     }],
     favoritesAdded: [Object],
 },{ timestamps: true })
