@@ -10,6 +10,7 @@ import UserComment from '../components/UserComment'
 import Loading from '../components/Loading'
 import ProductComment from '../components/ProductComment'
 import ProductButton from '../components/ProductButton'
+import ImageMagnifier from '../components/ImageMagnifier'
 
 const Product = () => {
   // React hooks
@@ -54,7 +55,7 @@ const Product = () => {
       setLoading(false)
     }
     getProduct()
-  },[])
+  },[productId])
 
   return (
     <>
@@ -73,6 +74,7 @@ const Product = () => {
               </div>
               <div className='big-image' >
                 {/* <Magnifier src={`${bigImage}`} sizes= "(max-width: 40px) 10vw, (max-width: 1200px) 30vw, 360px" zoomFactor={1}/> */}
+                <ImageMagnifier imgUrl={bigImage}/>
               </div>
 
             </div>

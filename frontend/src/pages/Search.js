@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom"
 const Search = ({result}) => {
   // React Hooks
   const {products} = useSelector(state => state.product)
-  const [params, setparams] = useSearchParams()
+  const [params] = useSearchParams()
   // Declared a constant
   const title = "SEARCH"
   const search = params.get('q')

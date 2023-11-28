@@ -24,13 +24,12 @@ export default function Nav() {
 
   //functions
   const onToggleClick = () => {
-    let disable
     if (pos === '0') {
       setPos('180vw')
-      disableScroll(disable=false)
+      disableScroll(false)
     } else {
       setPos('0')  
-      disableScroll(disable=true)
+      disableScroll(true)
     }
   }
 
@@ -42,9 +41,6 @@ export default function Nav() {
         setTransparent(false)
       }
     }
-  const handleHover = (name) => {
-    setHovered(`${name}`)
-  }
   // useEffect
   useEffect(() => {
     if(location.pathname === '/'){

@@ -1,10 +1,9 @@
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import {FaSadCry} from 'react-icons/fa'
 
 const Error = ({message}) => {
-  const navigate = useNavigate()
+
   return (
     <Container
       sx={{

@@ -1,17 +1,8 @@
 import { Box, Button, Container, Typography } from "@mui/material"
-import { useEffect } from "react"
 import { BsCheck2Circle } from "react-icons/bs"
 import { useNavigate } from "react-router-dom"
-import { path } from "../constants"
-import axios from "axios"
-import { useDispatch, useSelector } from "react-redux"
-import { eraseCart } from "../redux/cartSlice"
-
 
 const CheckoutSucces = () => {
-    // React hooks
-    const {detail} = useSelector(state => state.userDetail)
-    const dispatch = useDispatch()
     
     // React hooks
     const navigate = useNavigate()

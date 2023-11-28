@@ -4,7 +4,7 @@ import { Gallery,Sale,Search,Contact,Home, Login, SignUp } from './pages';
 import { BasicLayout, UserLayout } from './layout';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addUser } from './redux/userSlicer';
 import { getUserDetails } from './redux/userDetailSlicer';
 import axios from 'axios';
@@ -57,7 +57,7 @@ function App() {
       }
     }
     getProducts()
-  },[])
+  },[dispatch])
 
   return (
    <BrowserRouter>

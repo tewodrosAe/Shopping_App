@@ -2,7 +2,7 @@ import { AiOutlineClose, AiFillCrown } from 'react-icons/ai'
 import { BiSearchAlt } from 'react-icons/bi'
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 
@@ -28,7 +28,6 @@ const SearchBar = ({ setToggleSearch ,toggleSearch }) => {
     const location = useLocation()
     const [search, setSearch] = useState()
     const menu = useRef(null)
-    let [searchParams, setSearchParams] = useSearchParams();
     
     // functions
     const handleSubmit = (e,res) => {
@@ -54,7 +53,7 @@ const SearchBar = ({ setToggleSearch ,toggleSearch }) => {
     // useEffect hook    
     useEffect(() => {
         setToggleSearch(false)
-    },[location.pathname])
+    },[location.pathname,setToggleSearch])
 
     useEffect(() => {
         const clickedOutside = (e) => {
@@ -66,7 +65,7 @@ const SearchBar = ({ setToggleSearch ,toggleSearch }) => {
         return () => {
             document.removeEventListener('mousedown',clickedOutside)
         }
-    },[])
+    },[setToggleSearch])
 
     return (
         <motion.form

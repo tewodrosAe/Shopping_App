@@ -1643,10 +1643,19 @@ a {
   display: none;
 }
 .magnifier-image{
+  width: 150px;
+  height: 150px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  scale: 1.5;
+}
+.img-magnifier-container{
+  position: relative;
+}
+.magnifier-img{
   max-width: 422px;
   max-height: 525px;
 }
-
 @media screen and (min-width: 768px) and (max-width: 1200px) {
   .hero-section-words > .image > img {
     right: -5vw;

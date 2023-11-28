@@ -1,4 +1,4 @@
-import { BsFillBookmarkPlusFill, BsFillCartPlusFill } from "react-icons/bs"
+import {  BsFillCartPlusFill } from "react-icons/bs"
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md"
 import { useDispatch } from "react-redux"
 import { addCart } from "../redux/cartSlice"
