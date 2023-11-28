@@ -26,7 +26,6 @@ const ProductComment = ({detail,productId, setProduct}) => {
             setError(e.response.data.error)
         }
     }
-    console.log(error)
     return (
     <>
         <div className="product-review-user">

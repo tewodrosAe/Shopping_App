@@ -34,7 +34,6 @@ const ProductButton = ({product,userId,userDetail, color, storage}) => {
       dispatch(addCart(newCart.data.products))
       navigate('/cart')
     }catch(e){
-      console.log('Something went Wrong!')
       navigate('/cart')
     }
   }
@@ -53,7 +52,7 @@ const ProductButton = ({product,userId,userDetail, color, storage}) => {
         setSaved(true)
       }
     }catch(e){
-      console.log(e)
+      throw new Error({error: 'Something went wrong!'})
     }
     setLoading(false)
   }
@@ -62,7 +61,6 @@ const ProductButton = ({product,userId,userDetail, color, storage}) => {
   useEffect(() => {
     setSaved(false)
    const array =  userDetail?.favoritesAdded.filter(fav =>  fav[product?._id] === product?._id)
-    console.log(array)
    if(array && array.length > 0){
     setSaved(true)
    }

@@ -41,7 +41,7 @@ function App() {
         // Getting user cart info
         dispatch(getCart(users.token))
       }catch(e){
-        console.log('Somethin went wrong')
+        throw new Error({error: 'Something went wrong!'})
       }
     }
 
@@ -52,7 +52,6 @@ function App() {
         dispatch(addProducts(products.data))
         setLoading(false)
       }catch(e){
-        console.log('something went wrong')
         setLoading(false)
       }
     }

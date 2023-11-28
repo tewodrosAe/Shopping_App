@@ -18,7 +18,6 @@ function BestSellers({products}) {
       modules={[Navigation]}
       spaceBetween={20}
       slidesPerView={'auto'}
-      onSlideChange={() => console.log('slide change')}
       >
         {
           products.map(product => (

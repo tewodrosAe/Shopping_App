@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
-import { pathName } from "../config";
+import { path } from "../constants";
 
 export const createUserDetails = createAsyncThunk('/userdetail',
     async(userDetails) => {
-        const request = await axios.post(`${pathName}api/v1/userdetail/create`,userDetails)
+        const request = await axios.post(`${path}/userdetail/create`,userDetails)
         const resp = await request.data
         return resp
     }
@@ -16,7 +16,7 @@ export const getUserDetails = createAsyncThunk('get/userdetail',
             headers: { Authorization: `Bearer ${token}` }
         }
         try{
-            const request = await axios.get(`${pathName}api/v1/userdetail/`,config)
+            const request = await axios.get(`${path}/userdetail/`,config)
             const resp  = await request.data
             return resp
         }catch(e){

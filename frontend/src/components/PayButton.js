@@ -3,7 +3,6 @@ import axios from 'axios'
 import {path} from '../constants'
 
 const PayButton = ({cart,userId}) => {
-  console.log(cart)
   // Eventhandlers
   const handleClick = () => {
     axios.post(`${path}/stripe/create-checkout-session`,{
@@ -14,7 +13,7 @@ const PayButton = ({cart,userId}) => {
         window.location.href = res.data.url
       }
     }).catch(e => {
-      console.log(e.message)
+      throw new Error({error: 'Something went wrong!'})
     })
   }
   return (

@@ -15,7 +15,7 @@ const CartItem = ({cart,userId}) => {
             await axios.post(`${path}/cart/remove`, {productId: cart.productId, userId})
             dispatch(removeCart(cart.productId))
         }catch(e){
-            console.log(e)
+            throw new Error({error: 'Something went wrong!'})
         }
     }
     return (

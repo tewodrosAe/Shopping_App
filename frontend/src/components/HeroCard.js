@@ -3,7 +3,6 @@ import { BsFillBagPlusFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 
 function HeroCard({product}) {
-    console.log(product)
     // React hooks
     const navigate = useNavigate()
     return (

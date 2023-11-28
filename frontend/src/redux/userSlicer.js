@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
-import { pathName } from "../config";
+import { path } from "../constants";
 
 const initialState = {
     loading: null,
@@ -10,7 +10,7 @@ const initialState = {
 export const userLogin = createAsyncThunk('user/login',
     async(userDetail,{rejectWithValue}) =>{
         try{
-            const request = await axios.post(`${pathName}api/v1/auth/login`,userDetail)
+            const request = await axios.post(`${path}/auth/login`,userDetail)
             const resp = await request.data
             return resp
         }catch(error){
@@ -25,7 +25,7 @@ export const userLogin = createAsyncThunk('user/login',
 export const userSignup = createAsyncThunk('user/signup',
     async(userDetail,{rejectWithValue}) =>{
         try{
-            const request = await axios.post(`${pathName}api/v1/auth/signup`,userDetail) 
+            const request = await axios.post(`${path}/auth/signup`,userDetail) 
             const resp = await request.data
             return resp
         }catch(e){

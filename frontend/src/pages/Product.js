@@ -48,9 +48,9 @@ const Product = () => {
         setColors(resp.data.property.color[0])
         setLoading(false)
       } catch (e) {
-        console.log('Something went wrong!')
         setLoading(false)
         setError(true)
+        throw new Error({error: 'Something went wrong!'})
       }
       setLoading(false)
     }

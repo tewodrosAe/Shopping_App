@@ -15,7 +15,7 @@ export const getCart = createAsyncThunk('get/cart',
             const resp  = await cart.data
             return resp
         }catch(e){
-            console.log(e)
+            throw new Error(e)
         }
     }
 )
