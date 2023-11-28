@@ -28,7 +28,7 @@ function App() {
     const users = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
     if(users){
       try{
-        dispatch(getUserDetails(users.token))
+        dispatch(getUserDetails(users))
         .then(data => 
           {
             if(data.meta.requestStatus !== 'fulfilled'){
@@ -39,7 +39,7 @@ function App() {
           }
           )
         // Getting user cart info
-        dispatch(getCart(users.token))
+        dispatch(getCart(users))
       }catch(e){
         throw new Error({error: 'Something went wrong!'})
       }

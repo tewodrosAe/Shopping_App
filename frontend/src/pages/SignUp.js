@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { initialReducer, userSignup } from '../redux/userSlicer'
 import { errorChecker } from '../utils'
-import { createUserDetails } from '../redux/userDetailSlicer'
 import Loading from '../components/Loading'
+import { getUserDetails } from '../redux/userDetailSlicer'
 
 const Signup = () => {
   // React hooks
@@ -27,16 +27,9 @@ const Signup = () => {
     dispatch(userSignup(userDetail))
     .then(result => {
       if(!result.error && result.payload){
-        const { user, token } = result.payload
-        const userdetail = {user_id:user._id,username:user.username, email: user.email}
-        dispatch(createUserDetails(userdetail))
-        .then( res => {
-          const {username,profile} = res.payload
-          const details = {username,profile}
-          localStorage.setItem('userdetail',JSON.stringify(details))
-        })
+        dispatch(getUserDetails(result.payload))
         setUserDetail(initialState)
-        localStorage.setItem('user',JSON.stringify(token))
+        localStorage.setItem('user',JSON.stringify(result.payload))
         navigate('/')
       }
     })
