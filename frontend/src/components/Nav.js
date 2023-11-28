@@ -62,7 +62,7 @@ export default function Nav() {
       className={`nav ${transparent && "nav-transparent"}`}
     >
       <Link to="/" className="logo pointer">
-        <img src="/logo.png" alt="Logo" />
+        <img src="/LOGO.png" alt="Logo" />
         <h1>TECH STOP</h1>
       </Link>
 

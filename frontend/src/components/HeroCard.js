@@ -1,5 +1,4 @@
 import React from 'react'
-import { AiFillStar } from 'react-icons/ai'
 import { BsFillBagPlusFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 
