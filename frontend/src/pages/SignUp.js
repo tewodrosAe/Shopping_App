@@ -55,7 +55,7 @@ const Signup = () => {
         <div className="user-form-container">
           <IoCloseOutline size={25} onClick={() => navigate('/')}/>
           <div className="logo pointer user-logo" onClick={() => navigate('/')}>
-            <img src="/logo.png" alt="Logo" />
+            <img src="/LOGO.png" alt="Logo" />
             <h1>TECH STOP</h1>
           </div>
           <h2>
