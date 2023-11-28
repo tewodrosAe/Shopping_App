@@ -3,7 +3,6 @@ import Product from '../models/productModels.js'
 
 const getUserDetails = async(req,res) =>{
     const user = req.user
-    console.log(user)
     if(user){
         res.status(200).json(user)
     }
