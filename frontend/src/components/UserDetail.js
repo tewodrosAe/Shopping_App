@@ -43,7 +43,7 @@ const UserDetail = ({classname}) => {
         <div ref={menu} className="user-dropdown">
             <h5>{detail?.username}</h5>
             <ul>
-                <li onClick={() => navigate('/detail')}>More Info <AiOutlineInfoCircle size={18}/></li>
+                <li onClick={() => {navigate('/detail'); setClicked(false)}}>More Info <AiOutlineInfoCircle size={18}/></li>
                 <div className="break" id='user-break'></div>
                 <li onClick={logout}>Logout <AiOutlineLogout size={18}/></li>
                 <div className="break" id='user-break'></div>
