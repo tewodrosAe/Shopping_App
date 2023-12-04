@@ -22,6 +22,7 @@ const Login = () => {
         const {email}  = decoded
         const {data} = await axios.post(`${process.env.REACT_APP_PATH}/admin/find`,{email})
         if(data.error){
+            console.log(data.error)
             setError(data.error)
         }else{
             // Get Categories
