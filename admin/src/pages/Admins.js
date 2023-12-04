@@ -8,8 +8,7 @@ import { createAdmins, deleteAdmins } from '../redux/adminSlice';
 const Admins = () => {
   // React Hooks
   const { adminList: admins, user } = useSelector(state => state.user)
-  const [status, setStatus] = useState('Loading...')
-  const [error, setError] = useState()
+  const status = ('Loading...')
   const dispatch = useDispatch() 
   
   // Functions
@@ -44,7 +43,6 @@ const Admins = () => {
       console.log('Something went wrong')
     }
   }
-
   return (
     <div className='font-semibold'>
       Admins
@@ -70,7 +68,7 @@ const Admins = () => {
             <tbody>
               {
                 admins ?
-                admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin} currentId={user._id}/>) :
+                admins.map(admin => <AdminDetails key={admin._id} handleDelete={handleDelete} admin={admin} currentId={user._id} canDelete={admin.email === 'tewodrosaemiro@gmail.com'}/>) :
                 <tr>
                   <td> {status} </td>
                 </tr>
