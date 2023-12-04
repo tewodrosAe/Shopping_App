@@ -68,6 +68,11 @@ const Login = () => {
             {
                 error && <div className='text-sm font-bold text-center text-red-800 w-100 bg-white/50 rounded-sm p-2 px-10 transition'> *{error} </div>
             }
+            <div>
+                <h3 className='text-center'>Try this</h3>
+                <p>Email: exampleaqnt@gmail.com</p>
+                <p>Password: justcodingstuff</p>
+            </div>
         </div>
     )
 }
