@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { disableScroll } from "../utils"
 import { filtersTwo } from "../constants"
 
-function ItemCategories({ setFilteredTwo, setFiltered }) {
+function ItemCategories({ setFilteredTwo }) {
   // react hook initialization
   const[clicked,setClicked] = useState(false) 
   const menu = useRef()
@@ -11,7 +11,6 @@ function ItemCategories({ setFilteredTwo, setFiltered }) {
   const itemDropdown = (e) => {
     let disable = true
     setFilteredTwo(e.target.innerText)
-    setFiltered('All Products')
     if(!clicked){
       disableScroll(disable)
       setClicked(true)

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Filter from './Filter'
 import ProductCard from './ProductCard'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -9,10 +9,13 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 function BestSellers({products}) {
+  // React hooks
+  const [filtered, setFiltered] = useState('All Products')
+
   return (
     <div className="products-section ">
       <h1 className="products-section-head">Best Sellers</h1>
-      <Filter />
+      <Filter filtered={filtered} setFiltered={setFiltered}/>
       <Swiper
       navigation={true}
       modules={[Navigation]}
@@ -20,7 +23,7 @@ function BestSellers({products}) {
       slidesPerView={'auto'}
       >
         {
-          products.map(product => (
+          products.filter((product => product.category.split(' ').slice(-1)[0] === filtered || filtered === 'All Products')).map(product => (
             <SwiperSlide key={product._id}>
               <ProductCard product={product} slide={true} />
             </SwiperSlide>

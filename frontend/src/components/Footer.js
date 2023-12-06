@@ -1,8 +1,10 @@
 import React from 'react'
 import TechBadge from './TechBadge'
 import { footerOne, footerTwo } from '../constants'
+import { useNavigate } from 'react-router-dom'
 
 function Footer({isDark}) {
+  const navigate = useNavigate()
   return (
     <>
       <TechBadge isDark={isDark}/>
@@ -14,11 +16,11 @@ function Footer({isDark}) {
           <div className='footer-word-two'>
             <ul>
               <li id={isDark ? 'footer-word-two-header-dark':'footer-word-two-header'} >Product</li>
-              {footerOne?.map( footer => <li key={footer}> {footer} </li>) }
+              {footerOne?.map( footer => <li key={footer} onClick={() => navigate("/gallery")}> {footer} </li>) }
             </ul>
             <ul>
               <li id={isDark ? 'footer-word-two-header-dark':'footer-word-two-header'}>Associate Companies</li>
-              {footerTwo?.map((footer) => <li key={footer}> {footer} </li>)}
+              {footerTwo?.map((footer) =><li><a href={footer.link} key={footer.name}> {footer.name} </a></li>)}
             </ul>
           </div>
         </div>

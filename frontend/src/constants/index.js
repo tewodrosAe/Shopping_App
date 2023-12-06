@@ -8,11 +8,11 @@ export const footerOne = [
 ]
 
 export const footerTwo = [
-    'Sony',
-    'Samsung',
-    'Apple',
-    'HP',
-    'Lenovo',
+    {name:'Sony', link: 'https://www.sony.com/en/'},
+    {name:'Samsung', link: 'https://www.samsung.com/'},
+    {name:'Apple', link: 'https://www.apple.com/'},
+    {name:'HP', link:'https://www.hp.com/us-en/home.html'},
+    {name:'Lenovo', link: 'https://www.lenovo.com/us/en/'},
 ]
 
 export const cartTitles = [
